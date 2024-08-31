@@ -7,24 +7,25 @@ namespace EspacioCadeteria
     public class Cadeteria
     {
         public string Nombre {get;set;}
-        public int Telefono {get;set;}
+        public long Telefono {get;set;}
         public List<Cadete> ListaCadetes {get; set;}
 
-        public Cadeteria(string Nombre, int Telefono) //constructor
+        public Cadeteria(string Nombre, long Telefono, List<Cadete> ListaCadetes) //constructor
         {
             this.Nombre = Nombre;
             this.Telefono = Telefono;
-            ListaCadetes = new List<Cadete>();
+            this.ListaCadetes = ListaCadetes;
         }
 
-        public static Cadeteria CargarCSVCadeteria(string ArchivoCadetes, List<Cadete> cadetes)
+        public static Cadeteria CargarCSVCadeteria(string ArchivoCadeteria, List<Cadete> ListaCadetes)
         {
-            
-            var Nombre = "sada"; 
-            var Telefono = 2342;
-            Cadeteria Cadeteria = new Cadeteria(Nombre, Telefono);
+            string[] lineas = File.ReadAllLines(ArchivoCadeteria); //leo archivo csv cadeteria
 
-            return Cadeteria;
+            string[] datos = lineas[0].Split(','); //creo arreglo con cada dato para la cadeteria
+
+            Cadeteria cadeteria = new Cadeteria(datos[0], Convert.ToInt64(datos[1]), ListaCadetes);
+
+            return cadeteria;
         }
     }
 
@@ -33,7 +34,7 @@ namespace EspacioCadeteria
         public int Id {get; set;}
         public string Nombre {get; set;}
         public string Direccion {get; set;}
-        public int Telefono {get;set;} 
+        public long Telefono {get;set;} 
         public List<Pedido> ListaPedidos {get;set;}
 
         public float JornalACobrar() 
@@ -43,7 +44,7 @@ namespace EspacioCadeteria
             return jornal;
         }
 
-        public Cadete(int id, string nombre, string direccion, int telefono) //constructor
+        public Cadete(int id, string nombre, string direccion, long telefono) //constructor
         {
             Id = id;
             Nombre = nombre;
@@ -63,7 +64,7 @@ namespace EspacioCadeteria
                 string linea = lineas[i]; //selecciono una linea del archivo csv
                 string[] datos = linea.Split(','); //creo arreglo con cada dato para cada cadete segun el formato
 
-                Cadete cadete = new Cadete(Convert.ToInt32(datos[0]), datos[1], datos[2], Convert.ToInt32(datos[3]));
+                Cadete cadete = new Cadete(Convert.ToInt32(datos[0]), datos[1], datos[2], Convert.ToInt64(datos[3]));
 
                 ListaCadetes.Add(cadete); //agrego cadete a la lista
             }
