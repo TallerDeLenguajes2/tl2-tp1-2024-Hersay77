@@ -26,5 +26,6 @@ namespace EspacioLogicHelp
                 return false;
             }
         }
+
     }
 }

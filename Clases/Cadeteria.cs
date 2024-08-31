@@ -77,7 +77,7 @@ namespace EspacioCadeteria
         public int Nro {get; set;}
         public string Obs {get;set;}
         public Cliente Cliente {get; set;}
-        public string Estado {get; set;}
+        public int Estado {get; set;}
         
         public string VerDireccionCliente() //metodo muestra direccion del cliente
         {
@@ -90,12 +90,47 @@ namespace EspacioCadeteria
             Console.WriteLine($"Telefono del Cliente: {Cliente.Telefono}");
             Console.WriteLine($"Datos de Referencia de Direccion: {Cliente.DatosReferenciaDireccion}");
         }      
-
-        public Pedido(int nro, string obs, Cliente cliente, string estado) //constructor
+    
+        public Pedido(int nro)
         {
+            string obs, nombre, direccion, entrada, datosReferenciaDireccion;
+            long telefono;
+            int estado;
+            bool bandera;
+            /*ingreso nro automatico*/
+            Console.WriteLine("Ingrese Pedido y observaciones: ");
+            obs = Console.ReadLine();
+            Console.WriteLine("Ingrese Nombre Cliente: ");
+            nombre = Console.ReadLine();
+            Console.WriteLine("Ingrese Direccion del Cliente: ");
+            direccion = Console.ReadLine();   
+            Console.WriteLine("Ingrese Telefono Cliente: ");
+            do
+            {
+                entrada = Console.ReadLine();
+                bandera = long.TryParse(entrada, out telefono);
+                if (!bandera)
+                {
+                    Console.WriteLine("Ingreso Incorrecto. Vuelva a ingresar un numero");
+                }
+            } while (!bandera);
+            Console.WriteLine("Ingrese Datos de Referencia de la Direccion: ");
+            datosReferenciaDireccion = Console.ReadLine();
+            Console.WriteLine("Ingrese Estado del pedido: 1 = Entregado y 0 = No Entregado");
+            do
+            {
+                entrada = Console.ReadLine();
+                bandera = int.TryParse(entrada, out estado);
+                if (!bandera && estado >1 && estado < 0)
+                {
+                    Console.WriteLine("Ingreso Incorrecto. Vuelva a ingresar un numero");
+                }
+            } while (!bandera && estado >1 && estado < 0);
+
+            //construyendo pedido
             Nro = nro;
             Obs = obs;
-            Cliente = cliente;
+            Cliente = new Cliente(nombre, direccion, telefono, datosReferenciaDireccion);
             Estado = estado;
         }
     }
@@ -104,10 +139,10 @@ namespace EspacioCadeteria
     {
         public string Nombre {get; set;}
         public string Direccion {get; set;}
-        public int Telefono {get; set;}
+        public long Telefono {get; set;}
         public string DatosReferenciaDireccion {get;set;}
 
-        public Cliente(string nombre, string direccion, int telefono, string datosReferenciaDireccion) //constructor
+        public Cliente(string nombre, string direccion, long telefono, string datosReferenciaDireccion) //constructor
         {
             Nombre = nombre;
             Direccion = direccion;

@@ -9,9 +9,10 @@ if (LogicHelp.Existe(ArchivoCadetes) && LogicHelp.Existe(ArchivoCadeteria))
 {
     List<Cadete> ListaCadetes = Cadete.CargarCSVCadetes(ArchivoCadetes);
     Cadeteria cadeteria = Cadeteria.CargarCSVCadeteria(ArchivoCadeteria, ListaCadetes);
+    List<Pedido> ListaGeneralPedidos = new List<Pedido>(); //Creo lista general de pedidos vacia
 
     string entrada;
-    int opcion;
+    int opcion, nro = 1;
     do
     {
         do
@@ -21,10 +22,13 @@ if (LogicHelp.Existe(ArchivoCadetes) && LogicHelp.Existe(ArchivoCadeteria))
 
         } while (!int.TryParse(entrada, out opcion) || !LogicHelp.ControlMenuP(opcion));
 
-
         switch (opcion)
         {
             case 1:
+                Console.WriteLine("### DANDO DE ALTA UN PEDIDO ###");
+                var NuevoPedido = new Pedido(nro); //llamo al constructor de pedido
+                ListaGeneralPedidos.Add(NuevoPedido); //agrego pedido a la lista general
+                nro++; //aumento 
             break;
             case 2:
             break;
