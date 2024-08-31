@@ -93,6 +93,10 @@ namespace EspacioCadeteria
     
         public Pedido(int nro)
         {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("######### DANDO DE ALTA UN PEDIDO #########\n");
+            Console.ForegroundColor = ConsoleColor.White;
+            
             string obs, nombre, direccion, entrada, datosReferenciaDireccion;
             long telefono;
             int estado;
