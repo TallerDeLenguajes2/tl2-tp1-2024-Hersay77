@@ -15,6 +15,15 @@ namespace EspacioCadeteria
             this.Telefono = Telefono;
             ListaCadetes = new List<Cadete>();
         }
+
+        public static Cadeteria CargarCSVCadeteria(string ArchivoCadetes, List<Cadete> cadetes)
+        {
+            var Nombre = "sada"; 
+            var Telefono = 2342;
+            Cadeteria Cadeteria = new Cadeteria(Nombre, Telefono);
+
+            return Cadeteria;
+        }
     }
 
     public class Cadete
@@ -39,6 +48,15 @@ namespace EspacioCadeteria
             Direccion = direccion;
             Telefono = telefono;
             ListaPedidos = listaPedidos;
+        }
+
+        public static List<Cadete> CargarCSVCadetes(string ArchivoCadeteria)
+        {
+            List<Cadete> Cadetes = new List<Cadete>();
+
+
+
+            return Cadetes;
         }
     }
 
