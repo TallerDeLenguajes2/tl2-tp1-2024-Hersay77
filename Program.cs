@@ -7,8 +7,8 @@ string ArchivoCadeteria = "CSV/Cadeteria.csv";
 
 if (LogicHelp.Existe(ArchivoCadetes) && LogicHelp.Existe(ArchivoCadeteria))
 {
-    List<Cadete> cadetes = Cadete.CargarCSVCadetes(ArchivoCadeteria);
-    Cadeteria cadeteria = Cadeteria.CargarCSVCadeteria(ArchivoCadetes, cadetes);
+    List<Cadete> ListaCadetes = Cadete.CargarCSVCadetes(ArchivoCadetes);
+    Cadeteria cadeteria = Cadeteria.CargarCSVCadeteria(ArchivoCadeteria, ListaCadetes);
 
     GUI.Menu();
     Console.Read();
