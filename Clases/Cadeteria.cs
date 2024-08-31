@@ -18,6 +18,7 @@ namespace EspacioCadeteria
 
         public static Cadeteria CargarCSVCadeteria(string ArchivoCadetes, List<Cadete> cadetes)
         {
+            
             var Nombre = "sada"; 
             var Telefono = 2342;
             Cadeteria Cadeteria = new Cadeteria(Nombre, Telefono);
