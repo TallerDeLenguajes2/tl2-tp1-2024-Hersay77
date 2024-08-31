@@ -9,7 +9,7 @@ namespace EspacioGUI
             Console.WriteLine(
                     @"
                     ╔═════════════════════════════════════════════════════╗
-                    ║           G E S T I O N   D E  P E D I D O S        ║
+                    ║           G E S T I O N  D E  P E D I D O S         ║
                     ╠═════════════════════════════════════════════════════╣
                     ║ 1. NUEVO PEDIDO                                     ║
                     ║ 2. ASIGNAR PEDIDO A CADETE                          ║
