@@ -27,22 +27,25 @@ if (LogicHelp.Existe(ArchivoCadetes) && LogicHelp.Existe(ArchivoCadeteria))
             case 1:
                 var NuevoPedido = new Pedido(nro); //llamo al constructor de pedido
                 ListaGeneralPedidos.Add(NuevoPedido); //agrego pedido a la lista general
+                Console.WriteLine("PEDIDO AGREGADO A LA LISTA GENERAL DE PEDIDOS");
                 nro++; //aumento 
             break;
             case 2:
-
+                Pedido.AsignarPedido(ListaGeneralPedidos, ListaCadetes);
             break;
             case 3:
+                Pedido.CambiarEstado(ListaGeneralPedidos);
             break;
             case 4:
             break;
             case 5:
+                Console.WriteLine("SALIENDO...");
             break;
             default:
             break;
         }
 
-    } while (opcion >= 1 && opcion <=5);
+    } while (opcion >= 1 && opcion <=4);
 }
 else
 {

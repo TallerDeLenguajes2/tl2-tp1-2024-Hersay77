@@ -70,6 +70,23 @@ namespace EspacioCadeteria
             }
             return ListaCadetes;
         }
+    
+        public static void MostrarCadete(Cadete cadete)
+        {
+            Console.WriteLine($"Id: {cadete.Id} | Nombre: {cadete.Nombre} | Direccion: {cadete.Direccion} | Telefono: {cadete.Telefono}");
+            Console.WriteLine("Pedidos Asignados: ");
+            if (cadete.ListaPedidos.Count > 0)
+            {
+                foreach (var pedido in cadete.ListaPedidos)
+                {
+                    Pedido.MostrarPedido(pedido);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Aun no se asignaron pedidos a este cadete");
+            }
+        }
     }
 
     public class Pedido
@@ -96,7 +113,7 @@ namespace EspacioCadeteria
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("######### DANDO DE ALTA UN PEDIDO #########\n");
             Console.ForegroundColor = ConsoleColor.White;
-            
+
             string obs, nombre, direccion, entrada, datosReferenciaDireccion;
             long telefono;
             int estado;
@@ -125,17 +142,115 @@ namespace EspacioCadeteria
             {
                 entrada = Console.ReadLine();
                 bandera = int.TryParse(entrada, out estado);
-                if (!bandera && estado >1 && estado < 0)
+                if (!bandera || (estado != 1 && estado != 0))
                 {
                     Console.WriteLine("Ingreso Incorrecto. Vuelva a ingresar un numero");
                 }
-            } while (!bandera && estado >1 && estado < 0);
+            } while (!bandera || (estado != 1 && estado != 0));
 
             //construyendo pedido
             Nro = nro;
             Obs = obs;
             Cliente = new Cliente(nombre, direccion, telefono, datosReferenciaDireccion);
             Estado = estado;
+            Console.ResetColor();
+        }
+    
+        public static void MostrarPedido(Pedido pedido)
+        {
+            Console.WriteLine($"Pedido Nr: {pedido.Nro} | Obs: {pedido.Obs} | Cliente: {pedido.Cliente.Nombre} | Estado = {pedido.Estado} (Enregado = 1 - No Entregado = 0)");
+        }
+
+        public static void AsignarPedido(List<Pedido> ListaGeneralPedidos, List<Cadete> ListaCadetes)
+        {
+            Console.WriteLine("####### ASIGNANDO PEDIDO A CADETE #########");
+            Console.WriteLine("Selecione un pedido: ");
+            foreach (var pedido in ListaGeneralPedidos)
+            {
+                MostrarPedido(pedido);
+            }
+            int nroABuscar;
+            string entrada;
+            bool entradacorrecta;
+            Pedido pedidoEncontrado;
+            do
+            {
+                Console.WriteLine("Ingrese numero del pedido: ");
+                entrada = Console.ReadLine();
+                entradacorrecta = int.TryParse(entrada, out nroABuscar);
+                pedidoEncontrado = ListaGeneralPedidos.Find(Pedido => Pedido.Nro == nroABuscar);
+                if (entradacorrecta && pedidoEncontrado != null )
+                {
+                    Cadete cadeteEncontrado;
+                    do
+                    {
+                        Console.WriteLine("Seleccione un Cadete");
+                        foreach (var cadete in ListaCadetes)
+                        {
+                            Cadete.MostrarCadete(cadete);
+                        }
+                        Console.WriteLine("Ingrese el Id del Cadete: ");
+                        entrada = Console.ReadLine();
+                        entradacorrecta = int.TryParse(entrada, out nroABuscar);
+                        cadeteEncontrado = ListaCadetes.Find(Cadete => Cadete.Id == nroABuscar);
+                        if (entradacorrecta && cadeteEncontrado != null)
+                        {
+                            cadeteEncontrado.ListaPedidos.Add(pedidoEncontrado); //agrego el pedido a la lista del cadete
+                            Console.WriteLine("Pedido Asignado  a Cadete");
+                        }
+                        else
+                        {
+                            Console.WriteLine("No se encontro el Cadete - puede haber ingresado un numero incorrecto");
+                        }
+                    } while (!entradacorrecta || cadeteEncontrado == null);
+
+                }
+                else
+                {
+                    Console.WriteLine("No se ecnontro el Pedido - puede haber ingresado un numero incorrecto");
+                }
+            } while (!entradacorrecta || pedidoEncontrado == null);
+        }
+    
+        public static void CambiarEstado(List<Pedido> ListaGeneralPedidos)
+        {
+            Console.WriteLine("### CAMBIANDO ESTADO A UN PEDIDO: ###");
+            Console.WriteLine("Selecione un pedido: ");
+            foreach (var pedido in ListaGeneralPedidos)
+            {
+                MostrarPedido(pedido);
+            }
+            int nroABuscar;
+            string entrada;
+            bool entradacorrecta;
+            Pedido pedidoEncontrado;
+            do
+            {
+                Console.WriteLine("Ingrese numero del pedido: ");
+                entrada = Console.ReadLine();
+                entradacorrecta = int.TryParse(entrada, out nroABuscar);
+                pedidoEncontrado = ListaGeneralPedidos.Find(Pedido => Pedido.Nro == nroABuscar);
+                if (entradacorrecta && pedidoEncontrado != null )
+                {
+                    Console.WriteLine("Ingrese Estado del pedido: 1 = Entregado y 0 = No Entregado");
+                    int estado;
+                    do
+                    {
+                        entrada = Console.ReadLine();
+                        entradacorrecta = int.TryParse(entrada, out estado);
+                        if (!entradacorrecta || (estado != 1 && estado != 0))
+                        {
+                            Console.WriteLine("Ingreso Incorrecto. Vuelva a ingresar un numero");
+                        }
+                    } while (!entradacorrecta || (estado != 1 && estado != 0));
+                    pedidoEncontrado.Estado = estado;
+                    Console.WriteLine("Estado cambiado");
+                }
+                else
+                {
+                    Console.WriteLine("No se ecnontro el Pedido - puede haber ingresado un numero incorrecto");
+                }
+            } while (!entradacorrecta || pedidoEncontrado == null);
         }
     }
 
