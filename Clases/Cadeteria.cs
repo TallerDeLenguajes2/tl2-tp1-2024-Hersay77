@@ -1,6 +1,7 @@
 using System.Data.Common;
 using System.Text;
 using System.IO;
+using System.Net;
 
 namespace EspacioCadeteria
 {
@@ -207,7 +208,7 @@ namespace EspacioCadeteria
                 }
                 else
                 {
-                    Console.WriteLine("No se ecnontro el Pedido - puede haber ingresado un numero incorrecto");
+                    Console.WriteLine("No se encontro el Pedido - puede haber ingresado un numero incorrecto");
                 }
             } while (!entradacorrecta || pedidoEncontrado == null);
         }
@@ -252,6 +253,60 @@ namespace EspacioCadeteria
                 }
             } while (!entradacorrecta || pedidoEncontrado == null);
         }
+    
+        public static void ReasignarPedido(List<Pedido> ListaGeneralPedidos, List<Cadete> ListaCadetes)
+        {
+            Console.WriteLine("####### REASIGNANDO PEDIDO ########");
+            Console.WriteLine("Seleccione el cadete al que se le asigno un pedido: ");
+            foreach (var cadete in ListaCadetes)
+            {
+                Cadete.MostrarCadete(cadete);
+            }
+            int nroABuscar;
+            string entrada;
+            bool entradacorrecta;
+            Cadete cadeteEncontrado;
+            do
+            {
+                Console.WriteLine("Seleccione un id del cadete: ");
+                entrada = Console.ReadLine();
+                entradacorrecta = int.TryParse(entrada, out nroABuscar);
+                cadeteEncontrado = ListaCadetes.Find(Cadete => Cadete.Id == nroABuscar);
+                if (entradacorrecta && cadeteEncontrado != null )
+                {
+                    Pedido pedidoEncontrado;
+                    do
+                    {
+                        Console.WriteLine("Seleccione un Pedido");
+                        foreach (var pedido in cadeteEncontrado.ListaPedidos)
+                        {
+                            Pedido.MostrarPedido(pedido);
+                        }
+                        Console.WriteLine("Ingrese el Nro del Pedido: ");
+                        entrada = Console.ReadLine();
+                        entradacorrecta = int.TryParse(entrada, out nroABuscar);
+                        pedidoEncontrado = cadeteEncontrado.ListaPedidos.Find(Pedido => Pedido.Nro == nroABuscar);
+                        if (entradacorrecta && pedidoEncontrado != null)
+                        {
+                            cadeteEncontrado.ListaPedidos.Remove(pedidoEncontrado);
+                            Pedido.AsignarPedido(ListaGeneralPedidos, ListaCadetes);
+                            Console.WriteLine("Pedido Reasingado: ");
+                        }
+                        else
+                        {
+                            Console.WriteLine("No se encontro el pedido - puede haber ingresado un numero incorrecto");
+                        }
+                    } while (!entradacorrecta || cadeteEncontrado == null);
+
+                }
+                else
+                {
+                    Console.WriteLine("No se encontro el cadete - puede haber ingresado un numero incorrecto");
+                }
+            } while (!entradacorrecta || cadeteEncontrado == null);
+
+        }
+    
     }
 
     public class Cliente 

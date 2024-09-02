@@ -37,6 +37,7 @@ if (LogicHelp.Existe(ArchivoCadetes) && LogicHelp.Existe(ArchivoCadeteria))
                 Pedido.CambiarEstado(ListaGeneralPedidos);
             break;
             case 4:
+                Pedido.ReasignarPedido(ListaGeneralPedidos, ListaCadetes);
             break;
             case 5:
                 Console.WriteLine("SALIENDO...");
