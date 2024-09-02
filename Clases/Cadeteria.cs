@@ -47,7 +47,6 @@ namespace EspacioCadeteria
                 {
                     jornal += 500;
                 }
-
             }
             return jornal;
         }
@@ -81,7 +80,9 @@ namespace EspacioCadeteria
     
         public static void MostrarCadete(Cadete cadete)
         {
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"Id: {cadete.Id} | Nombre: {cadete.Nombre} | Direccion: {cadete.Direccion} | Telefono: {cadete.Telefono}");
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("Pedidos Asignados: ");
             if (cadete.ListaPedidos.Count > 0)
             {
@@ -94,6 +95,7 @@ namespace EspacioCadeteria
             {
                 Console.WriteLine("Aun no se asignaron pedidos a este cadete");
             }
+            Console.ResetColor();
         }
     }
 
@@ -106,15 +108,15 @@ namespace EspacioCadeteria
         
         public static string VerDireccionCliente(Cliente cliente) //metodo muestra direccion del cliente
         {
-            return $"La direccion del cliente es: {cliente.Direccion}";
+            return $"\tLa direccion del cliente es: {cliente.Direccion}";
         }
         public static void VerDatosCliente(Cliente cliente) //metodo muestra datos del cliente
         {
-            Console.WriteLine("Datos del Cliente: ");
-            Console.WriteLine($"Nombre del Cliente: {cliente.Nombre}");
-            VerDatosCliente(cliente);
-            Console.WriteLine($"Telefono del Cliente: {cliente.Telefono}");
-            Console.WriteLine($"Datos de Referencia de Direccion: {cliente.DatosReferenciaDireccion}");
+            Console.WriteLine("\tDatos del Cliente: ");
+            Console.WriteLine($"\tNombre del Cliente: {cliente.Nombre}");
+            VerDireccionCliente(cliente);
+            Console.WriteLine($"\tTelefono del Cliente: {cliente.Telefono}");
+            Console.WriteLine($"\tDatos de Referencia de Direccion: {cliente.DatosReferenciaDireccion}");
         }      
     
         public Pedido(int nro)
@@ -167,13 +169,17 @@ namespace EspacioCadeteria
     
         public static void MostrarPedido(Pedido pedido)
         {
-            Console.WriteLine($"Pedido Nr: {pedido.Nro} | Obs: {pedido.Obs} | Estado = {pedido.Estado} (Enregado = 1 - No Entregado = 0)");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine($"\tPedido Nr: {pedido.Nro} | Obs: {pedido.Obs} | Estado = {pedido.Estado} (Enregado = 1 - No Entregado = 0)");
             Pedido.VerDatosCliente(pedido.Cliente); 
+            Console.ResetColor();
         }
 
         public static void AsignarPedido(List<Pedido> ListaGeneralPedidos, List<Cadete> ListaCadetes)
         {
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("####### ASIGNANDO PEDIDO A CADETE #########");
+            Console.ResetColor();
             Console.WriteLine("Selecione un pedido: ");
             foreach (var pedido in ListaGeneralPedidos)
             {
@@ -206,7 +212,9 @@ namespace EspacioCadeteria
                         if (entradacorrecta && cadeteEncontrado != null)
                         {
                             cadeteEncontrado.ListaPedidos.Add(pedidoEncontrado); //agrego el pedido a la lista del cadete
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
                             Console.WriteLine("Pedido Asignado  a Cadete");
+                            Console.ResetColor();
                         }
                         else
                         {
@@ -254,7 +262,9 @@ namespace EspacioCadeteria
                         }
                     } while (!entradacorrecta || (estado != 1 && estado != 0));
                     pedidoEncontrado.Estado = estado;
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("Estado cambiado");
+                    Console.ResetColor();
                 }
                 else
                 {
@@ -299,7 +309,9 @@ namespace EspacioCadeteria
                         {
                             cadeteEncontrado.ListaPedidos.Remove(pedidoEncontrado);
                             Pedido.AsignarPedido(ListaGeneralPedidos, ListaCadetes);
-                            Console.WriteLine("Pedido Reasingado: ");
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("Pedido Reasignado");
+                            Console.ResetColor();
                         }
                         else
                         {
@@ -333,6 +345,5 @@ namespace EspacioCadeteria
             DatosReferenciaDireccion = datosReferenciaDireccion;
         }
     }
-
 
 }

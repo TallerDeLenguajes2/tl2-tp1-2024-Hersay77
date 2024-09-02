@@ -15,7 +15,7 @@ namespace EspacioGUI
                     ║ 2. ASIGNAR PEDIDO A CADETE                          ║
                     ║ 3. CAMBIAR ESTADO DE PEDIDO                         ║
                     ║ 4. REASIGNAR PEDIDO A CADETE                        ║
-                    ║ 5. SALIR                                            ║
+                    ║ 5. FINALIZAR JORNADA (MOSTRAR INFORME Y SALIR)      ║
                     ╚═════════════════════════════════════════════════════╝
                     "
             );

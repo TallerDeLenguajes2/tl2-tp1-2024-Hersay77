@@ -1,4 +1,5 @@
-﻿using EspacioCadeteria;
+﻿using EspacioInforme;
+using EspacioCadeteria;
 using EspacioGUI;
 using EspacioLogicHelp;
 
@@ -27,7 +28,9 @@ if (LogicHelp.Existe(ArchivoCadetes) && LogicHelp.Existe(ArchivoCadeteria))
             case 1:
                 var NuevoPedido = new Pedido(nro); //llamo al constructor de pedido
                 ListaGeneralPedidos.Add(NuevoPedido); //agrego pedido a la lista general
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("PEDIDO AGREGADO A LA LISTA GENERAL DE PEDIDOS");
+                Console.ForegroundColor = ConsoleColor.White;
                 nro++; //aumento 
             break;
             case 2:
@@ -40,6 +43,8 @@ if (LogicHelp.Existe(ArchivoCadetes) && LogicHelp.Existe(ArchivoCadeteria))
                 Pedido.ReasignarPedido(ListaGeneralPedidos, ListaCadetes);
             break;
             case 5:
+                Console.WriteLine("FINAL DE JORNADA - MOSTRANDO INFORME");
+                Informe.MostrarInforme(ListaCadetes);
                 Console.WriteLine("SALIENDO...");
             break;
             default:
