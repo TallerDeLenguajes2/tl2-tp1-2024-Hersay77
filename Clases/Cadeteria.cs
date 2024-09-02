@@ -38,10 +38,17 @@ namespace EspacioCadeteria
         public long Telefono {get;set;} 
         public List<Pedido> ListaPedidos {get;set;}
 
-        public float JornalACobrar() 
+        public float JornalACobrar(Cadete cadete) 
         {
             float jornal = 0;
+            foreach (var pedido in cadete.ListaPedidos)
+            {
+                if (pedido.Estado == 1)
+                {
+                    jornal += 500;
+                }
 
+            }
             return jornal;
         }
 
@@ -97,16 +104,17 @@ namespace EspacioCadeteria
         public Cliente Cliente {get; set;}
         public int Estado {get; set;}
         
-        public string VerDireccionCliente() //metodo muestra direccion del cliente
+        public static string VerDireccionCliente(Cliente cliente) //metodo muestra direccion del cliente
         {
-            return $"La direccion del cliente es: {Cliente.Direccion}";
+            return $"La direccion del cliente es: {cliente.Direccion}";
         }
-        public void VerDatosCliente() //metodo muestra datos del cliente
+        public static void VerDatosCliente(Cliente cliente) //metodo muestra datos del cliente
         {
-            Console.WriteLine($"Nombre del Cliente: {Cliente.Nombre}");
-            Console.WriteLine($"Direccion del Cliente: {Cliente.Direccion}");
-            Console.WriteLine($"Telefono del Cliente: {Cliente.Telefono}");
-            Console.WriteLine($"Datos de Referencia de Direccion: {Cliente.DatosReferenciaDireccion}");
+            Console.WriteLine("Datos del Cliente: ");
+            Console.WriteLine($"Nombre del Cliente: {cliente.Nombre}");
+            VerDatosCliente(cliente);
+            Console.WriteLine($"Telefono del Cliente: {cliente.Telefono}");
+            Console.WriteLine($"Datos de Referencia de Direccion: {cliente.DatosReferenciaDireccion}");
         }      
     
         public Pedido(int nro)
@@ -159,7 +167,8 @@ namespace EspacioCadeteria
     
         public static void MostrarPedido(Pedido pedido)
         {
-            Console.WriteLine($"Pedido Nr: {pedido.Nro} | Obs: {pedido.Obs} | Cliente: {pedido.Cliente.Nombre} | Estado = {pedido.Estado} (Enregado = 1 - No Entregado = 0)");
+            Console.WriteLine($"Pedido Nr: {pedido.Nro} | Obs: {pedido.Obs} | Estado = {pedido.Estado} (Enregado = 1 - No Entregado = 0)");
+            Pedido.VerDatosCliente(pedido.Cliente); 
         }
 
         public static void AsignarPedido(List<Pedido> ListaGeneralPedidos, List<Cadete> ListaCadetes)

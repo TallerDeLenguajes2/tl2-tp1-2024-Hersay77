@@ -50,7 +50,7 @@ if (LogicHelp.Existe(ArchivoCadetes) && LogicHelp.Existe(ArchivoCadeteria))
 }
 else
 {
-    Console.WriteLine("Error no se puede inciiar el programa falta: Cadetes.csv o Cadeteria.csv");
+    Console.WriteLine("Error no se puede inciar el programa falta: Cadetes.csv o Cadeteria.csv");
 }
 
 
