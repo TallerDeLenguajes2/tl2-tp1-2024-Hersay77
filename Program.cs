@@ -1,15 +1,18 @@
 ﻿using EspacioInforme;
 using EspacioCadeteria;
+using EspacioCadete;
 using EspacioGUI;
 using EspacioLogicHelp;
+using EspacioAccesoADatos;
+using EspacioPedido;
 
 string ArchivoCadetes = "CSV/Cadetes.csv";
 string ArchivoCadeteria = "CSV/Cadeteria.csv";
 
 if (LogicHelp.Existe(ArchivoCadetes) && LogicHelp.Existe(ArchivoCadeteria))
 {
-    List<Cadete> ListaCadetes = Cadete.CargarCSVCadetes(ArchivoCadetes);
-    Cadeteria cadeteria = Cadeteria.CargarCSVCadeteria(ArchivoCadeteria, ListaCadetes);
+    List<Cadete> ListaCadetes = AccesoADatos.CargarCSVCadetes(ArchivoCadetes);
+    Cadeteria cadeteria = AccesoADatos.CargarCSVCadeteria(ArchivoCadeteria, ListaCadetes);
     List<Pedido> ListaGeneralPedidos = new List<Pedido>(); //Creo lista general de pedidos vacia
 
     string entrada;
@@ -31,32 +34,30 @@ if (LogicHelp.Existe(ArchivoCadetes) && LogicHelp.Existe(ArchivoCadeteria))
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("PEDIDO AGREGADO A LA LISTA GENERAL DE PEDIDOS");
                 Console.ForegroundColor = ConsoleColor.White;
-                nro++; //aumento 
-            break;
+                nro++; //aumento numero de pedido
+                break;
             case 2:
-                Pedido.AsignarPedido(ListaGeneralPedidos, ListaCadetes);
-            break;
+                Cadeteria.AsignarPedido(ListaGeneralPedidos, ListaCadetes);
+                break;
             case 3:
-                Pedido.CambiarEstado(ListaGeneralPedidos);
-            break;
+                Cadeteria.CambiarEstado(ListaGeneralPedidos);
+                break;
             case 4:
-                Pedido.ReasignarPedido(ListaGeneralPedidos, ListaCadetes);
-            break;
+                Cacdeteria.ReasignarPedido(ListaGeneralPedidos, ListaCadetes);
+                break;
             case 5:
                 Console.WriteLine("FINAL DE JORNADA - MOSTRANDO INFORME");
                 Informe.MostrarInforme(ListaCadetes);
                 Console.WriteLine("SALIENDO...");
-            break;
+                break;
             default:
-            break;
+                break;
         }
 
-    } while (opcion >= 1 && opcion <=4);
+    } while (opcion >= 1 && opcion <= 4);
 }
 else
 {
     Console.WriteLine("Error no se puede inciar el programa falta: Cadetes.csv o Cadeteria.csv");
 }
-
-
 

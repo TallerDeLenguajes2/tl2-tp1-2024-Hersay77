@@ -1,0 +1,55 @@
+using EspacioPedido;
+
+namespace EspacioCadete
+{
+    public class Cadete
+    {
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public string Direccion { get; set; }
+        public long Telefono { get; set; }
+        public List<Pedido> ListaPedidos { get; set; }
+
+        public float JornalACobrar(Cadete cadete)
+        {
+            float jornal = 0;
+            foreach (var pedido in cadete.ListaPedidos)
+            {
+                if (pedido.Estado == 1)
+                {
+                    jornal += 500;
+                }
+            }
+            return jornal;
+        }
+
+        public Cadete(int id, string nombre, string direccion, long telefono) //constructor
+        {
+            Id = id;
+            Nombre = nombre;
+            Direccion = direccion;
+            Telefono = telefono;
+            ListaPedidos = new List<Pedido>();
+        }
+
+        public static void MostrarCadete(Cadete cadete)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"Id: {cadete.Id} | Nombre: {cadete.Nombre} | Direccion: {cadete.Direccion} | Telefono: {cadete.Telefono}");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Pedidos Asignados: ");
+            if (cadete.ListaPedidos.Count > 0)
+            {
+                foreach (var pedido in cadete.ListaPedidos)
+                {
+                    Pedido.MostrarPedido(pedido);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Aun no se asignaron pedidos a este cadete");
+            }
+            Console.ResetColor();
+        }
+    }
+}

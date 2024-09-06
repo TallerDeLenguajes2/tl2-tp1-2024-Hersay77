@@ -1,4 +1,5 @@
 using EspacioCadeteria;
+using EspacioCadete;
 
 namespace EspacioInforme
 {
@@ -18,10 +19,12 @@ namespace EspacioInforme
                         CantidadDePedidosCompletados++;
                     }
                 }
+                
                 Console.WriteLine($"Nombre: {cadete.Nombre} || Pedidos completdaoos por el cadete: {CantidadDePedidosCompletados} || Total ganado: ${cadete.JornalACobrar(cadete)}");
                 totalEnvios = totalEnvios + CantidadDePedidosCompletados;
             }
 
+            //var cantidad = cadete.pedidos.Count(t => t.Estado == 1);
 
             float promedioEnviosPorCadete = totalEnvios/(float)ListaCadetes.Count;
             Console.WriteLine("\nINFORME GENERAL:");
