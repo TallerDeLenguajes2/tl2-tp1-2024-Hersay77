@@ -20,6 +20,11 @@ namespace EspacioCadeteria
             this.ListaCadetes = ListaCadetes;
         }
 
+        public Cadeteria() //Constructor "Vacio"
+        {
+            this.ListaCadetes = new List<Cadete>();
+        }
+
         public static void AsignarPedido(List<Pedido> ListaGeneralPedidos, List<Cadete> ListaCadetes)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
