@@ -37,7 +37,14 @@ if (HelperLogic.Existe(ArchivoCadetes) && HelperLogic.Existe(ArchivoCadeteria))
                 nro++; //aumento numero de pedido
                 break;
             case 2:
-                Cadeteria.AsignarPedido(ListaGeneralPedidos, ListaCadetes);
+                if (ListaGeneralPedidos.Count != 0)
+                {
+                    Cadeteria.AsignarPedido(ListaGeneralPedidos, ListaCadetes);
+                }
+                else
+                {
+                    Console.WriteLine("NO HAY PEDIDOS PARA ASIGNAR");
+                }
                 break;
             case 3:
                 Cadeteria.CambiarEstado(ListaGeneralPedidos);
