@@ -17,10 +17,10 @@ namespace EspacioPedido
         public static void VerDatosCliente(Cliente cliente) //metodo muestra datos del cliente
         {
             Console.WriteLine("\tDatos del Cliente: ");
-            Console.WriteLine($"\tNombre del Cliente: {cliente.Nombre}");
+            Console.WriteLine($"\t\tNombre del Cliente: {cliente.Nombre}");
             VerDireccionCliente(cliente);
-            Console.WriteLine($"\tTelefono del Cliente: {cliente.Telefono}");
-            Console.WriteLine($"\tDatos de Referencia de Direccion: {cliente.DatosReferenciaDireccion}");
+            Console.WriteLine($"\t\tTelefono del Cliente: {cliente.Telefono}");
+            Console.WriteLine($"\t\tDatos de Referencia de Direccion: {cliente.DatosReferenciaDireccion}");
         }
 
         public Pedido(int nro)

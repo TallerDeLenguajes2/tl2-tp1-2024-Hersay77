@@ -1,17 +1,10 @@
-namespace EspacioLogicHelp
+namespace EspacioHelperLogic
 {
-    class LogicHelp
+    class HelperLogic
     {
         public static bool Existe(string ruta) //comrpueba existencia de archivo
         {
-            if (File.Exists(ruta))
-            {
-                return true;
-            }   
-            else
-            {
-                return false;
-            }
+            return File.Exists(ruta);
         }
 
         public static bool ControlMenuP(int opcion) //control entrada correcta

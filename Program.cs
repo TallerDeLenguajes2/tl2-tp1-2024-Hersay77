@@ -2,17 +2,17 @@
 using EspacioCadeteria;
 using EspacioCadete;
 using EspacioGUI;
-using EspacioLogicHelp;
+using EspacioHelperLogic;
 using EspacioAccesoADatos;
 using EspacioPedido;
 
 string ArchivoCadetes = "CSV/Cadetes.csv";
 string ArchivoCadeteria = "CSV/Cadeteria.csv";
 
-if (LogicHelp.Existe(ArchivoCadetes) && LogicHelp.Existe(ArchivoCadeteria))
+if (HelperLogic.Existe(ArchivoCadetes) && HelperLogic.Existe(ArchivoCadeteria))
 {
-    List<Cadete> ListaCadetes = AccesoADatos.CargarCSVCadetes(ArchivoCadetes);
-    Cadeteria cadeteria = AccesoADatos.CargarCSVCadeteria(ArchivoCadeteria, ListaCadetes);
+    List<Cadete> ListaCadetes = AccesoADatos.CargarCSVCadetes(ArchivoCadetes); //Cargo Lista Cadetes
+    Cadeteria cadeteria = AccesoADatos.CargarCSVCadeteria(ArchivoCadeteria, ListaCadetes); //Cargo datos de Cadeteria en una instancia cadeteria
     List<Pedido> ListaGeneralPedidos = new List<Pedido>(); //Creo lista general de pedidos vacia
 
     string entrada;
@@ -24,7 +24,7 @@ if (LogicHelp.Existe(ArchivoCadetes) && LogicHelp.Existe(ArchivoCadeteria))
             GUI.Menu();
             entrada = Console.ReadLine();
 
-        } while (!int.TryParse(entrada, out opcion) || !LogicHelp.ControlMenuP(opcion));
+        } while (!int.TryParse(entrada, out opcion) || !HelperLogic.ControlMenuP(opcion));
 
         switch (opcion)
         {
@@ -43,7 +43,7 @@ if (LogicHelp.Existe(ArchivoCadetes) && LogicHelp.Existe(ArchivoCadeteria))
                 Cadeteria.CambiarEstado(ListaGeneralPedidos);
                 break;
             case 4:
-                Cacdeteria.ReasignarPedido(ListaGeneralPedidos, ListaCadetes);
+                Cadeteria.ReasignarPedido(ListaGeneralPedidos, ListaCadetes);
                 break;
             case 5:
                 Console.WriteLine("FINAL DE JORNADA - MOSTRANDO INFORME");

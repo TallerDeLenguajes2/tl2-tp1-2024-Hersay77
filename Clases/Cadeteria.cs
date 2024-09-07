@@ -3,6 +3,7 @@ using System.Text;
 using System.IO;
 using System.Net;
 using EspacioCadete;
+using EspacioPedido;
 
 namespace EspacioCadeteria
 {
@@ -27,7 +28,7 @@ namespace EspacioCadeteria
             Console.WriteLine("Selecione un pedido: ");
             foreach (var pedido in ListaGeneralPedidos)
             {
-                MostrarPedido(pedido);
+                Pedido.MostrarPedido(pedido);
             }
             int nroABuscar;
             string entrada;
@@ -80,7 +81,7 @@ namespace EspacioCadeteria
             Console.WriteLine("Selecione un pedido: ");
             foreach (var pedido in ListaGeneralPedidos)
             {
-                MostrarPedido(pedido);
+                Pedido.MostrarPedido(pedido);
             }
             int nroABuscar;
             string entrada;
@@ -152,7 +153,7 @@ namespace EspacioCadeteria
                         if (entradacorrecta && pedidoEncontrado != null)
                         {
                             cadeteEncontrado.ListaPedidos.Remove(pedidoEncontrado);
-                            Pedido.AsignarPedido(ListaGeneralPedidos, ListaCadetes);
+                            Cadeteria.AsignarPedido(ListaGeneralPedidos, ListaCadetes);
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine("Pedido Reasignado");
                             Console.ResetColor();
