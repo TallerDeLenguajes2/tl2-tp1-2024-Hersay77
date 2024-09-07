@@ -1,5 +1,4 @@
-﻿using EspacioInforme;
-using EspacioCadeteria;
+﻿using EspacioCadeteria;
 using EspacioCadete;
 using EspacioGUI;
 using EspacioHelperLogic;
@@ -54,7 +53,7 @@ if (HelperLogic.Existe(ArchivoCadetes) && HelperLogic.Existe(ArchivoCadeteria))
                 break;
             case 5:
                 Console.WriteLine("FINAL DE JORNADA - MOSTRANDO INFORME");
-                Informe.MostrarInforme(ListaCadetes);
+                Cadeteria.MostrarInforme(ListaCadetes);
                 Console.WriteLine("SALIENDO...");
                 break;
             default:
