@@ -9,10 +9,10 @@ namespace EspacioCliente
 
         public Cliente(string nombre, string direccion, long telefono, string datosReferenciaDireccion) //constructor
         {
-            Nombre = nombre;
-            Direccion = direccion;
-            Telefono = telefono;
-            DatosReferenciaDireccion = datosReferenciaDireccion;
+            this.Nombre = Nombre;
+            this.Direccion = Direccion;
+            this.Telefono = Telefono;
+            this.DatosReferenciaDireccion = DatosReferenciaDireccion;
         }
     }
 }

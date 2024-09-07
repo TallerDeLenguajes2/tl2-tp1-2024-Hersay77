@@ -1,7 +1,3 @@
-using System.Data.Common;
-using System.Text;
-using System.IO;
-using System.Net;
 using EspacioCadete;
 using EspacioPedido;
 
@@ -23,6 +19,52 @@ namespace EspacioCadeteria
         public Cadeteria() //Constructor "Vacio"
         {
             this.ListaCadetes = new List<Cadete>();
+        }
+
+        public static Pedido AltaPedido(int Nro)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("######### DANDO DE ALTA UN PEDIDO #########\n");
+            Console.ForegroundColor = ConsoleColor.White;
+
+            string Obs, Nombre, Direccion, Entrada, DatosReferenciaDireccion;
+            long Telefono;
+            int Estado;
+            bool Bandera;
+            /*ingreso nro automatico*/
+            Console.WriteLine("Ingrese Pedido y observaciones: ");
+            Obs = Console.ReadLine();
+            Console.WriteLine("Ingrese Nombre Cliente: ");
+            Nombre = Console.ReadLine();
+            Console.WriteLine("Ingrese Direccion del Cliente: ");
+            Direccion = Console.ReadLine();
+            Console.WriteLine("Ingrese Telefono Cliente: ");
+            do
+            {
+                Entrada = Console.ReadLine();
+                Bandera = long.TryParse(Entrada, out Telefono);
+                if (!Bandera)
+                {
+                    Console.WriteLine("Ingreso Incorrecto. Vuelva a ingresar un numero");
+                }
+            } while (!Bandera);
+            Console.WriteLine("Ingrese Datos de Referencia de la Direccion: ");
+            DatosReferenciaDireccion = Console.ReadLine();
+            Console.WriteLine("Ingrese Estado del pedido: 1 = Entregado y 0 = No Entregado");
+            do
+            {
+                Entrada = Console.ReadLine();
+                Bandera = int.TryParse(Entrada, out Estado);
+                if (!Bandera || (Estado != 1 && Estado != 0))
+                {
+                    Console.WriteLine("Ingreso Incorrecto. Vuelva a ingresar un numero");
+                }
+            } while (!Bandera || (Estado != 1 && Estado != 0));
+
+            //construyendo pedido
+            Pedido Pedido = new Pedido(Nro, Obs, Nombre, Direccion, Telefono, DatosReferenciaDireccion, Estado);
+            Console.ResetColor();
+            return Pedido;
         }
 
         public static void AsignarPedido(List<Pedido> ListaGeneralPedidos, List<Cadete> ListaCadetes)

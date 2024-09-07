@@ -29,7 +29,7 @@ if (HelperLogic.Existe(ArchivoCadetes) && HelperLogic.Existe(ArchivoCadeteria))
         switch (opcion)
         {
             case 1:
-                var NuevoPedido = new Pedido(nro); //llamo al constructor de pedido
+                Pedido NuevoPedido = Cadeteria.AltaPedido(nro);
                 ListaGeneralPedidos.Add(NuevoPedido); //agrego pedido a la lista general
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("PEDIDO AGREGADO A LA LISTA GENERAL DE PEDIDOS");
