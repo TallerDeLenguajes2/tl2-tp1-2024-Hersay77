@@ -46,7 +46,7 @@ if (HelperLogic.Existe(ArchivoCadetes) && HelperLogic.Existe(ArchivoCadeteria))
                 }
                 break;
             case 3:
-                Cadeteria.CambiarEstado(cadeteria.ListaCadetes);
+                Cadeteria.CambiarEstado(ListaCadetes);
                 break;
             case 4:
                 Cadeteria.ReasignarPedido(ListaGeneralPedidos, ListaCadetes);
