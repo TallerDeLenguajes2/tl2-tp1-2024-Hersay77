@@ -7,7 +7,7 @@ namespace EspacioCliente
         public long Telefono { get; set; }
         public string DatosReferenciaDireccion { get; set; }
 
-        public Cliente(string nombre, string direccion, long telefono, string datosReferenciaDireccion) //constructor
+        public Cliente(string Nombre, string Direccion, long Telefono, string DatosReferenciaDireccion) //constructor
         {
             this.Nombre = Nombre;
             this.Direccion = Direccion;
