@@ -45,5 +45,10 @@ namespace EspacioAccesoADatos
             return ListaCadetes;
         }
 
+        public static bool Existe(string ruta) //comrpueba existencia de archivo
+        {
+            return File.Exists(ruta);
+        }
+    
     }
 }

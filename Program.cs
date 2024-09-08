@@ -8,7 +8,7 @@ using EspacioPedido;
 string ArchivoCadetes = "CSV/Cadetes.csv";
 string ArchivoCadeteria = "CSV/Cadeteria.csv";
 
-if (HelperLogic.Existe(ArchivoCadetes) && HelperLogic.Existe(ArchivoCadeteria))
+if (AccesoADatos.Existe(ArchivoCadetes) && AccesoADatos.Existe(ArchivoCadeteria))
 {
     List<Cadete> ListaCadetes = AccesoADatos.CargarCSVCadetes(ArchivoCadetes); //Cargo Lista Cadetes
     Cadeteria cadeteria = AccesoADatos.CargarCSVCadeteria(ArchivoCadeteria, ListaCadetes); //Cargo datos de Cadeteria en una instancia cadeteria
@@ -18,12 +18,10 @@ if (HelperLogic.Existe(ArchivoCadetes) && HelperLogic.Existe(ArchivoCadeteria))
     int opcion, nro = 1;
     do
     {
-        do
-        {
-            GUI.Menu();
-            entrada = Console.ReadLine();
 
-        } while (!int.TryParse(entrada, out opcion) || !HelperLogic.ControlMenuP(opcion));
+        GUI.Menu(cadeteria);
+        entrada = Console.ReadLine();
+        int.TryParse(entrada, out opcion);
 
         switch (opcion)
         {
@@ -57,10 +55,12 @@ if (HelperLogic.Existe(ArchivoCadetes) && HelperLogic.Existe(ArchivoCadeteria))
                 Console.WriteLine("SALIENDO...");
                 break;
             default:
+                Console.Clear();
+                Console.WriteLine("OPCION NO VALIDA - VUELVA A INGRESAR");
                 break;
         }
 
-    } while (opcion >= 1 && opcion <= 4);
+    } while (opcion < 1 || opcion >= 4);
 }
 else
 {

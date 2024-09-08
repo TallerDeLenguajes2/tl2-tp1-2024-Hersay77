@@ -1,22 +1,24 @@
+using EspacioCadeteria;
+
 namespace EspacioGUI
 {
     public class GUI
     {
-        public static void Menu()
+        public static void Menu(Cadeteria cadeteria)
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
-            
+           
             Console.WriteLine(
-                    @"
-                    ╔═════════════════════════════════════════════════════╗
-                    ║           G E S T I O N  D E  P E D I D O S         ║
-                    ╠═════════════════════════════════════════════════════╣
-                    ║ 1. NUEVO PEDIDO                                     ║
-                    ║ 2. ASIGNAR PEDIDO A CADETE                          ║
-                    ║ 3. CAMBIAR ESTADO DE PEDIDO                         ║
-                    ║ 4. REASIGNAR PEDIDO A CADETE                        ║
-                    ║ 5. FINALIZAR JORNADA (MOSTRAR INFORME Y SALIR)      ║
-                    ╚═════════════════════════════════════════════════════╝
+                    @$"
+                    ╔═══════════════════════════════════════════════════════════════════════╗
+                      CADETERIA: {cadeteria.Nombre} - TEL: {cadeteria.Telefono}             
+                    ╠═══════════════════════════════════════════════════════════════════════╣
+                    ║ 1. NUEVO PEDIDO                                                       ║
+                    ║ 2. ASIGNAR PEDIDO A CADETE                                            ║
+                    ║ 3. CAMBIAR ESTADO DE PEDIDO                                           ║
+                    ║ 4. REASIGNAR PEDIDO A CADETE                                          ║
+                    ║ 5. FINALIZAR JORNADA (MOSTRAR INFORME Y SALIR)                        ║
+                    ╚═══════════════════════════════════════════════════════════════════════╝
                     "
             );
             Console.ForegroundColor = ConsoleColor.Blue;
