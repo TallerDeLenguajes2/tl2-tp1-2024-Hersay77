@@ -28,7 +28,6 @@ namespace EspacioCadete
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"Id: {cadete.Id} | Nombre: {cadete.Nombre} | Direccion: {cadete.Direccion} | Telefono: {cadete.Telefono}");
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("Pedidos Asignados: ");
             Console.ResetColor();
         }
     }

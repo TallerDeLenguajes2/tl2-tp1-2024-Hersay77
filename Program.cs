@@ -11,7 +11,6 @@ if (AccesoADatos.Existe(ArchivoCadetes) && AccesoADatos.Existe(ArchivoCadeteria)
 {
     List<Cadete> ListaCadetes = AccesoADatos.CargarCSVCadetes(ArchivoCadetes); //Cargo Lista Cadetes
     Cadeteria cadeteria = AccesoADatos.CargarCSVCadeteria(ArchivoCadeteria, ListaCadetes); //Cargo datos de Cadeteria en una instancia cadeteria
-    List<Pedido> ListaGeneralPedidos = new List<Pedido>(); //Creo lista general de pedidos vacia
 
     string entrada;
     int opcion, nro = 1;
@@ -26,16 +25,16 @@ if (AccesoADatos.Existe(ArchivoCadetes) && AccesoADatos.Existe(ArchivoCadeteria)
         {
             case 1:
                 Pedido NuevoPedido = Cadeteria.AltaPedido(nro);
-                ListaGeneralPedidos.Add(NuevoPedido); //agrego pedido a la lista general
+                cadeteria.ListaPedidos.Add(NuevoPedido); //agrego pedido a la lista general
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("PEDIDO AGREGADO A LA LISTA GENERAL DE PEDIDOS");
                 Console.ForegroundColor = ConsoleColor.White;
                 nro++; //aumento numero de pedido
                 break;
             case 2:
-                if (ListaGeneralPedidos.Count != 0)
+                if (cadeteria.ListaPedidos.Count != 0)
                 {
-                    Cadeteria.AsignarPedido(ListaGeneralPedidos, ListaCadetes);
+                    Cadeteria.AsignarPedido(cadeteria.ListaPedidos, ListaCadetes);
                 }
                 else
                 {
@@ -43,10 +42,10 @@ if (AccesoADatos.Existe(ArchivoCadetes) && AccesoADatos.Existe(ArchivoCadeteria)
                 }
                 break;
             case 3:
-                Cadeteria.CambiarEstado(ListaCadetes);
+                Cadeteria.CambiarEstado(cadeteria.ListaPedidos);
                 break;
             case 4:
-                Cadeteria.ReasignarPedido(ListaGeneralPedidos, ListaCadetes);
+                Cadeteria.ReasignarPedido(cadeteria.ListaPedidos, ListaCadetes);
                 break;
             case 5:
                 Console.WriteLine("FINAL DE JORNADA - MOSTRANDO INFORME");
