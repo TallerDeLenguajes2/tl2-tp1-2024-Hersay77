@@ -34,7 +34,7 @@ if (AccesoADatos.Existe(ArchivoCadetes) && AccesoADatos.Existe(ArchivoCadeteria)
             case 2:
                 if (cadeteria.ListaPedidos.Count != 0)
                 {
-                    Cadeteria.AsignarPedido(cadeteria.ListaPedidos, ListaCadetes);
+                    cadeteria.AsignarPedido();
                 }
                 else
                 {
@@ -42,10 +42,10 @@ if (AccesoADatos.Existe(ArchivoCadetes) && AccesoADatos.Existe(ArchivoCadeteria)
                 }
                 break;
             case 3:
-                Cadeteria.CambiarEstado(cadeteria.ListaPedidos);
+                cadeteria.CambiarEstado();
                 break;
             case 4:
-                Cadeteria.ReasignarPedido(cadeteria.ListaPedidos, ListaCadetes);
+                cadeteria.ReasignarPedido();
                 break;
             case 5:
                 Console.WriteLine("FINAL DE JORNADA - MOSTRANDO INFORME");
