@@ -1,7 +1,6 @@
 ﻿using EspacioCadeteria;
 using EspacioCadete;
 using EspacioGUI;
-using EspacioHelperLogic;
 using EspacioAccesoADatos;
 using EspacioPedido;
 
@@ -60,7 +59,7 @@ if (AccesoADatos.Existe(ArchivoCadetes) && AccesoADatos.Existe(ArchivoCadeteria)
                 break;
         }
 
-    } while (opcion < 1 || opcion >= 4);
+    } while (opcion !=5);
 }
 else
 {

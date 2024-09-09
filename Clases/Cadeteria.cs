@@ -280,29 +280,28 @@ namespace EspacioCadeteria
     
         public static void MostrarInforme(List<Cadete> ListaCadetes)
         {
-            float totalEnvios = 0;
-            Console.WriteLine("Informacion Cadetes:");
-            foreach (var cadete in ListaCadetes)
-            {
-                int CantidadDePedidosCompletados = 0;
-                foreach (var pedido in cadete.ListaPedidos)
-                {
-                    if (pedido.Estado == 1)
-                    {
-                        CantidadDePedidosCompletados++;
-                    }
-                }
-                
-                Console.WriteLine($"Nombre: {cadete.Nombre} || Pedidos completdaoos por el cadete: {CantidadDePedidosCompletados} || Total ganado: ${cadete.JornalACobrar(cadete)}");
-                totalEnvios = totalEnvios + CantidadDePedidosCompletados;
-            }
-
-            //var cantidad = cadete.pedidos.Count(t => t.Estado == 1);
-
-            float promedioEnviosPorCadete = totalEnvios/(float)ListaCadetes.Count;
+            List<Cadete> CadetesConPedidos = ListaCadetes.FindAll(cadete => cadete.ListaPedidos.Any(pedido => pedido.Estado == 1)); //Guardo en una lista todos los cadetes que tengan pedido completado
             Console.WriteLine("\nINFORME GENERAL:");
-            Console.WriteLine($"Total de envios: {totalEnvios}");
-            Console.WriteLine($"Promedio de envios por cadete: {promedioEnviosPorCadete}");
+
+            if (CadetesConPedidos != null)
+            {
+                int totalPedidosCompletados = CadetesConPedidos.Sum(cadete => cadete.ListaPedidos.Count(pedido => pedido.Estado == 1));
+                float promedioEnviosPorCadete = totalPedidosCompletados/(float)CadetesConPedidos.Count;
+                Console.WriteLine($"Total de envios: {totalPedidosCompletados}");
+                Console.WriteLine($"Promedio de envios por cadete: {promedioEnviosPorCadete}");
+
+                Console.WriteLine("INFORME POR CADETE: ");
+                int totalEnvioCadete;
+                foreach (var cadete in CadetesConPedidos)
+                {       
+                    totalEnvioCadete = cadete.ListaPedidos.Count(pedido => pedido.Estado == 1);
+                    Console.WriteLine($"\tNombre: {cadete.Nombre} || Pedidos completdados por el cadete: {totalEnvioCadete } || Total ganado: ${cadete.JornalACobrar(cadete)}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("NO HAY CADETES CON PEDIDOS COMPLETADOS");
+            }
         }
     }
 }

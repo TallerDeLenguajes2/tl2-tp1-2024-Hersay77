@@ -12,14 +12,8 @@ namespace EspacioCadete
 
         public float JornalACobrar(Cadete cadete)
         {
-            float jornal = 0;
-            foreach (var pedido in cadete.ListaPedidos)
-            {
-                if (pedido.Estado == 1)
-                {
-                    jornal += 500;
-                }
-            }
+            int totalPedidosCompletados = cadete.ListaPedidos.Count(pedido => pedido.Estado == 1);
+            float jornal = totalPedidosCompletados * 500;
             return jornal;
         }
 
