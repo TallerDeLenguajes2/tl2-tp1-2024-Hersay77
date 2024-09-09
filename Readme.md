@@ -33,8 +33,7 @@
             DatosReferenciaDireccion = datosReferenciaDireccion;
         }
 
-    En el caso de Pedido hice un constructor mas elaborado ya que este a su vez llama a los meetodos de construir cliente
+    En el caso de Pedido hice un constructor mas elaborado ya que este a su vez llama a los metodos de construir cliente
 
 ### ● ¿Se le ocurre otra forma que podría haberse realizado el diseño de clases?
-    Podria ser que en la clase cadeteria dentro tenga un atributo lista de pedidos, lista de clientes y lista de cadetes
-    y clases apartes cadete, clientes y pedidos ya que todas forman parte de la cadeteria
+    Pondria la clase cliente como Agregacion pára poder tener un listado aparte de clientes nuevos y clientes habituales 
