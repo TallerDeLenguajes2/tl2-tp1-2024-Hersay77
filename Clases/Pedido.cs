@@ -30,13 +30,16 @@ namespace EspacioPedido
             Console.WriteLine($"\t\tTelefono del Cliente: {cliente.Telefono}");
             Console.WriteLine($"\t\tDatos de Referencia de Direccion: {cliente.DatosReferenciaDireccion}");
         }
-
-        
+   
         public static void MostrarPedido(Pedido pedido)
         {
             Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine($"\tPedido Nr: {pedido.nro} | Obs: {pedido.obs} | Estado = {pedido.estado} (Enregado = 1 - No Entregado = 0)");
+            Console.WriteLine($"Pedido Nr: {pedido.nro} | Obs: {pedido.obs} | Estado = {pedido.estado} (Enregado = 1 - No Entregado = 0)");
             Pedido.VerDatosCliente(pedido.cliente);
+            if (pedido.Cadete != null)
+            {
+                Cadete.MostrarCadete(pedido.Cadete);
+            }
             Console.ResetColor();
         }
 

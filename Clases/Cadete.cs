@@ -26,7 +26,7 @@ namespace EspacioCadete
         public static void MostrarCadete(Cadete cadete)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"Id: {cadete.Id} | Nombre: {cadete.Nombre} | Direccion: {cadete.Direccion} | Telefono: {cadete.Telefono}");
+            Console.WriteLine($"\tId: {cadete.Id} | Nombre: {cadete.Nombre} | Direccion: {cadete.Direccion} | Telefono: {cadete.Telefono}");
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.ResetColor();
         }
