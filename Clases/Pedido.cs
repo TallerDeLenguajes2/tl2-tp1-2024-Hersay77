@@ -4,10 +4,10 @@ namespace EspacioPedido
 {
     public class Pedido
     {
-        public int Nro { get; set; }
-        public string Obs { get; set; }
-        public Cliente Cliente { get; set; }
-        public int Estado { get; set; }
+        public int Nro { get;}
+        public string Obs { get;}
+        public Cliente Cliente { get;}
+        public int Estado { get; set;}
 
         public static string VerDireccionCliente(Cliente cliente) //metodo muestra direccion del cliente
         {

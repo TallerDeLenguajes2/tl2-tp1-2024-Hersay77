@@ -4,11 +4,11 @@ namespace EspacioCadete
 {
     public class Cadete
     {
-        public int Id { get; set; }
-        public string Nombre { get; set; }
-        public string Direccion { get; set; }
-        public long Telefono { get; set; }
-        public List<Pedido> ListaPedidos { get; set; }
+        public int Id { get; }
+        public string Nombre { get; }
+        public string Direccion { get;}
+        public long Telefono { get; }
+        public List<Pedido> ListaPedidos { get;}
 
         public float JornalACobrar(Cadete cadete)
         {
