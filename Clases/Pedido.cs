@@ -1,3 +1,4 @@
+using EspacioCadete;
 using EspacioCliente;
 
 namespace EspacioPedido
@@ -9,10 +10,15 @@ namespace EspacioPedido
         private Cliente cliente;
         private int estado;
 
+        private Cadete cadete;
+
         public int Nro { get => nro;}
         public string Obs { get => obs; }
         public Cliente Cliente { get => cliente; }
         public int Estado { get => estado; set => estado = value; }
+
+        public Cadete Cadete { get => cadete; }
+
 
         public static string VerDireccionCliente(Cliente cliente) //metodo muestra direccion del cliente
         {
@@ -43,6 +49,5 @@ namespace EspacioPedido
             this.cliente = new Cliente(Nombre, Direccion, Telefono, DatosReferenciaDireccion);
             this.estado = Estado;
         }
-
     }
 }

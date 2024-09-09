@@ -8,10 +8,12 @@ namespace EspacioCadeteria
         private string nombre;
         private long telefono;
         private List<Cadete> listaCadetes;
+        private List<Pedido> listaPedidos; 
 
         public string Nombre { get => nombre; }
         public long Telefono { get => telefono; }
         public List<Cadete> ListaCadetes { get => listaCadetes;}
+        public List<Pedido> ListaPedidos { get => listaPedidos;}
 
         public Cadeteria(string Nombre, long Telefono, List<Cadete> ListaCadetes) //constructor
         {
@@ -307,6 +309,21 @@ namespace EspacioCadeteria
                 Console.WriteLine("NO HAY CADETES CON PEDIDOS COMPLETADOS");
             }
         }
+    
+        public float JornalACobrar(int id)
+        {
+            /*
+            int totalPedidosCompletados = cadete.ListaPedidos.Count(pedido => pedido.Estado == 1);
+            float jornal = totalPedidosCompletados * 500;
+            return jornal;
+            */
+        }
+        
+        public static void AsignarCadeteAPedido(int id, int nroPedido)
+        {
+
+        }
+
     }
 }
 
