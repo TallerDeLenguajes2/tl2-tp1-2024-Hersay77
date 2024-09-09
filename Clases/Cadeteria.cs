@@ -5,20 +5,24 @@ namespace EspacioCadeteria
 {
     public class Cadeteria
     {
-        public string Nombre { get; set; }
-        public long Telefono { get; set; }
-        public List<Cadete> ListaCadetes { get; set; }
+        private string nombre;
+        private long telefono;
+        private List<Cadete> listaCadetes;
+
+        public string Nombre { get => nombre; }
+        public long Telefono { get => telefono; }
+        public List<Cadete> ListaCadetes { get => listaCadetes;}
 
         public Cadeteria(string Nombre, long Telefono, List<Cadete> ListaCadetes) //constructor
         {
-            this.Nombre = Nombre;
-            this.Telefono = Telefono;
-            this.ListaCadetes = ListaCadetes;
+            this.nombre = Nombre;
+            this.telefono = Telefono;
+            this.listaCadetes = ListaCadetes;
         }
 
         public Cadeteria() //Constructor "Vacio"
         {
-            this.ListaCadetes = new List<Cadete>();
+            this.listaCadetes = new List<Cadete>();
         }
 
         public static Pedido AltaPedido(int Nro)

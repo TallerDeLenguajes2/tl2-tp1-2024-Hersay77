@@ -4,10 +4,15 @@ namespace EspacioPedido
 {
     public class Pedido
     {
-        public int Nro { get;}
-        public string Obs { get;}
-        public Cliente Cliente { get;}
-        public int Estado { get; set;}
+        private int nro;
+        private string obs;
+        private Cliente cliente;
+        private int estado;
+
+        public int Nro { get => nro;}
+        public string Obs { get => obs; }
+        public Cliente Cliente { get => cliente; }
+        public int Estado { get => estado; set => estado = value; }
 
         public static string VerDireccionCliente(Cliente cliente) //metodo muestra direccion del cliente
         {
@@ -26,17 +31,17 @@ namespace EspacioPedido
         public static void MostrarPedido(Pedido pedido)
         {
             Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine($"\tPedido Nr: {pedido.Nro} | Obs: {pedido.Obs} | Estado = {pedido.Estado} (Enregado = 1 - No Entregado = 0)");
-            Pedido.VerDatosCliente(pedido.Cliente);
+            Console.WriteLine($"\tPedido Nr: {pedido.nro} | Obs: {pedido.obs} | Estado = {pedido.estado} (Enregado = 1 - No Entregado = 0)");
+            Pedido.VerDatosCliente(pedido.cliente);
             Console.ResetColor();
         }
 
         public Pedido(int Nro, string Obs, string Nombre, string Direccion, long Telefono, string DatosReferenciaDireccion,int Estado)
         {
-            this.Nro = Nro;
-            this.Obs = Obs;
-            this.Cliente = new Cliente(Nombre, Direccion, Telefono, DatosReferenciaDireccion);
-            this.Estado = Estado;
+            this.nro = Nro;
+            this.obs = Obs;
+            this.cliente = new Cliente(Nombre, Direccion, Telefono, DatosReferenciaDireccion);
+            this.estado = Estado;
         }
 
     }

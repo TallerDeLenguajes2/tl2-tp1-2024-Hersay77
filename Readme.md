@@ -8,15 +8,20 @@
 ### ● ¿Qué métodos considera que debería tener la clase Cadetería y la clase Cadete?
     Cadeteria: 
         metodo constructor de Cadeteria
-        metodo que cargue el CVS con datos de la Cadeteria
+        metodos
+            AltaDePedido
+            AsignarPedido
+            CambiarEstado
+            ReasingarPedido
+            MostrarInforme
+
     Cadete: 
         metodo Jornal a Cobrar
         metodo Constructor de Cadete
-        metodo que cargue un CSV con datos de los Cadetes
         metodo mostrar datos del Cadete
 
 ### ● Teniendo en cuenta los principios de abstracción y ocultamiento, que atributos, propiedades y métodos deberían ser públicos y cuáles privados.
-    Estableci como publicos todos aquellos metodos en las clases, los cuales trabajan con los atributos privados, los cuales son los campos qe son las caracteristicas de cada instancia
+    Todos los atributos son privadso. Y todos de solo lectura a excepcion del estado de un pedido que sera cambiado desde fuera de la clase
 
 ### ● ¿Cómo diseñaría los constructores de cada una de las clases?
     en el caso de cadeteria, cadete, Cliente uso un constructor que recibe cada dato y asigna sus valores a los campos de los mismos por ejemplo: 

@@ -4,11 +4,19 @@ namespace EspacioCadete
 {
     public class Cadete
     {
-        public int Id { get; }
-        public string Nombre { get; }
-        public string Direccion { get;}
-        public long Telefono { get; }
-        public List<Pedido> ListaPedidos { get;}
+        private int id;
+        private string nombre;
+        private string direccion;
+
+        private long telefono;
+
+        private List<Pedido> listaPedidos;
+
+        public int Id { get => id;}
+        public string Nombre { get => nombre;  }
+        public string Direccion { get => direccion; }
+        public long Telefono { get => telefono; }
+        public List<Pedido> ListaPedidos { get => listaPedidos; }
 
         public float JornalACobrar(Cadete cadete)
         {
@@ -19,11 +27,11 @@ namespace EspacioCadete
 
         public Cadete(int id, string nombre, string direccion, long telefono) //constructor
         {
-            Id = id;
-            Nombre = nombre;
-            Direccion = direccion;
-            Telefono = telefono;
-            ListaPedidos = new List<Pedido>();
+            this.id = id;
+            this.nombre = nombre;
+            this.direccion = direccion;
+            this.telefono = telefono;
+            this.listaPedidos = new List<Pedido>();
         }
 
         public static void MostrarCadete(Cadete cadete)
