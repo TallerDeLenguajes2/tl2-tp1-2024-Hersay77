@@ -49,7 +49,7 @@ if (AccesoADatos.Existe(ArchivoCadetes) && AccesoADatos.Existe(ArchivoCadeteria)
                 break;
             case 5:
                 Console.WriteLine("FINAL DE JORNADA - MOSTRANDO INFORME");
-                Cadeteria.MostrarInforme(ListaCadetes);
+                cadeteria.MostrarInforme();
                 Console.WriteLine("SALIENDO...");
                 break;
             default:

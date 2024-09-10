@@ -13,22 +13,20 @@ namespace EspacioCadeteria
         public string Nombre { get => nombre; }
         public long Telefono { get => telefono; }
         public List<Cadete> ListaCadetes { get => listaCadetes;}
-        public List<Pedido> ListaPedidos { get => listaPedidos; set => listaPedidos = value}
+        public List<Pedido> ListaPedidos { get => listaPedidos;}
 
         public Cadeteria(string Nombre, long Telefono, List<Cadete> ListaCadetes) //constructor
         {
             this.nombre = Nombre;
             this.telefono = Telefono;
             this.listaCadetes = ListaCadetes;
-            listaCadetes = new List<Cadete>();
+            listaCadetes = ListaCadetes;
             listaPedidos = new List<Pedido>();
         }
 
-        public Cadeteria() //Constructor "Vacio"
-        {
-            this.listaCadetes = new List<Cadete>();
-        }
+        public Cadeteria(){
 
+        }
         public static Pedido AltaPedido(int Nro)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -74,77 +72,90 @@ namespace EspacioCadeteria
             Console.ResetColor();
             return Pedido;
         }
-
         public void AsignarPedido()
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("####### ASIGNANDO PEDIDO A CADETE #########");
             Console.ResetColor();
-            Console.WriteLine("SELECCIONE UN PEDIDO: ");
-            foreach (var pedido in ListaPedidos)
+
+            List<Pedido> PedidosNoAsignados = ListaPedidos.Where(pedido => pedido.Cadete == null).ToList(); //armo lista de pedidos NO asignados
+
+            if (PedidosNoAsignados.Count != 0)
             {
-                Pedido.MostrarPedido(pedido);
-            }
-            int nroABuscar;
-            string entrada;
-            bool entradacorrecta;
-            Pedido pedidoEncontrado = null;
-            Cadete cadeteEncontrado = null;
-            do
-            {
-                Console.WriteLine("INGRESE NUMERO DE PEDIDO: ");
-                entrada = Console.ReadLine();
-                entradacorrecta = int.TryParse(entrada, out nroABuscar);
-                if (entradacorrecta)
+                Console.WriteLine("SELECCIONE UN PEDIDO: ");
+                foreach (var pedido in PedidosNoAsignados)
                 {
-                    pedidoEncontrado = ListaPedidos.Find(Pedido => Pedido.Nro == nroABuscar);
-                    if (pedidoEncontrado != null)
+                    Pedido.MostrarPedido(pedido);
+                }
+                int nroABuscar;
+                string entrada;
+                bool entradacorrecta;
+                Pedido pedidoEncontrado = null;
+                Cadete cadeteEncontrado = null;
+                do
+                {
+                    Console.WriteLine("INGRESE NUMERO DE PEDIDO: ");
+                    entrada = Console.ReadLine();
+                    entradacorrecta = int.TryParse(entrada, out nroABuscar);
+                    if (entradacorrecta)
                     {
-                        do
+                        pedidoEncontrado = PedidosNoAsignados.Find(Pedido => Pedido.Nro == nroABuscar);
+                        if (pedidoEncontrado != null)
                         {
-                            Console.WriteLine("SELECCIONE UN CADETE");
-                            foreach (var cadete in ListaCadetes)
+                            do
                             {
-                                Cadete.MostrarCadete(cadete);
-                            }
-                            Console.WriteLine("INGRESE EL ID DEL CADETE: ");
-                            entrada = Console.ReadLine();
-                            entradacorrecta = int.TryParse(entrada, out nroABuscar);
-                            if (entradacorrecta)
-                            {
-                                cadeteEncontrado = ListaCadetes.Find(Cadete => Cadete.Id == nroABuscar);
-                                if (cadeteEncontrado != null)
+                                Console.WriteLine("SELECCIONE UN CADETE");
+                                foreach (var cadete in ListaCadetes)
                                 {
-                                    pedidoEncontrado.Cadete = cadeteEncontrado; //asigno cadete
-                                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                                    Console.WriteLine("PEDIDO ASIGNADO A CADETE");
-                                    Console.ResetColor();
+                                    Cadete.MostrarCadete(cadete);
+                                }
+                                Console.WriteLine("INGRESE EL ID DEL CADETE: ");
+                                entrada = Console.ReadLine();
+                                entradacorrecta = int.TryParse(entrada, out nroABuscar);
+                                if (entradacorrecta)
+                                {
+                                    cadeteEncontrado = ListaCadetes.Find(Cadete => Cadete.Id == nroABuscar);
+                                    if (cadeteEncontrado != null)
+                                    {
+                                        pedidoEncontrado.Cadete = cadeteEncontrado; //asigno cadete
+                                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                                        Console.WriteLine("PEDIDO ASIGNADO A CADETE");
+                                        Console.ResetColor();
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("NO SE ENCONTRO EL CADETE");
+                                    }
+
                                 }
                                 else
                                 {
-                                    Console.WriteLine("NO SE ENCONTRO EL CADETE");
-                                }
+                                    Console.WriteLine("INGRESO INCORRECTO");
+                                }                            
+                            } while (!entradacorrecta || cadeteEncontrado == null);
 
-                            }
-                            else
-                            {
-                                Console.WriteLine("INGRESO INCORRECTO");
-                            }                            
-                        } while (!entradacorrecta || cadeteEncontrado == null);
-
+                        }
+                        else
+                        {
+                            Console.WriteLine("NO SE ENCONTRO EL PEDIDO");
+                        }
                     }
                     else
                     {
-                        Console.WriteLine("NO SE ENCONTRO EL PEDIDO");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("INGRESO INCORRECTO");
-                }                
-            } while (!entradacorrecta || pedidoEncontrado == null);
-        }
+                        Console.WriteLine("INGRESO INCORRECTO");
+                    }                
+                } while (!entradacorrecta || pedidoEncontrado == null || cadeteEncontrado == null);
+            }
+            else
+            {
+                Console.WriteLine("NO HAY PEDIDOS PARA ASIGNAR");
+            }
 
+
+
+
+            
+        }
         public void CambiarEstado()
         {
             Console.WriteLine("### CAMBIANDO ESTADO A UN PEDIDO: ###");
@@ -154,6 +165,10 @@ namespace EspacioCadeteria
             Pedido pedidoEncontrado;
 
             Console.WriteLine("SELECCIONE UN PEDIDO: ");
+            foreach (var pedido in ListaPedidos)
+            {
+                Pedido.MostrarPedido(pedido);
+            }
             entrada = Console.ReadLine();
             entradacorrecta = int.TryParse(entrada, out nroABuscar);
 
@@ -196,7 +211,7 @@ namespace EspacioCadeteria
         {
             List<Pedido> PedidosAsignados = ListaPedidos.Where(pedido => pedido.Cadete != null).ToList(); //armo lista de pedidos con cadetes asignados
             
-            if (PedidosAsignados != null)
+            if (PedidosAsignados.Count != 0)
             {
                 Console.WriteLine("MOSTRANDO PEDIDOS ASIGNADOS Y SU CORRESPONDIENTE CADETE");
                 foreach (var pedido in PedidosAsignados)
@@ -216,12 +231,25 @@ namespace EspacioCadeteria
                     entradacorrecta = int.TryParse(entrada, out idPedido);
                     if (entradacorrecta)
                     {
-                        Console.WriteLine("SELECCIONE EL NUMERO DE PEDIDO A REASINGAR");
+                        Console.WriteLine("SELECCIONE EL ID DEL CADETE");
+                        Console.WriteLine("MOSTRANDO CADETES");
+                        foreach (var cadete in ListaCadetes)
+                        {
+                            Cadete.MostrarCadete(cadete);
+                        }
                         entrada = Console.ReadLine();
                         entradacorrecta = int.TryParse(entrada, out idCadete);
                         if (entradacorrecta)
                         {
-                            AsignarCadeteAPedido(idCadete, idPedido);
+                            bool asignacion = AsignarCadeteAPedido(idCadete, idPedido);
+                            if (asignacion)
+                            {
+                                Console.WriteLine("CADETE ASIGNADO AL PEDIDO");
+                            }
+                            else
+                            {
+                                Console.WriteLine("NO SE PUDO ASIGNAR EL CADETE AL PEDIDO");
+                            }
                         }
                         else
                         {
@@ -238,137 +266,70 @@ namespace EspacioCadeteria
             {
                 Console.WriteLine("AUN NO SE ASIGNARON PEDIDOS A NINGUN CADETE");
             }
-        }
-    
-        public static void MostrarInforme(List<Cadete> ListaCadetes)
+        }    
+        public void MostrarInforme()
         {
-            List<Cadete> CadetesConPedidos = ListaCadetes.FindAll(cadete => cadete.ListaPedidos.Any(pedido => pedido.Estado == 1)); //Guardo en una lista todos los cadetes que tengan pedido completado
-            Console.WriteLine("\nINFORME GENERAL:");
-
-            if (CadetesConPedidos != null)
-            {
-                int totalPedidosCompletados = CadetesConPedidos.Sum(cadete => cadete.ListaPedidos.Count(pedido => pedido.Estado == 1));
-                float promedioEnviosPorCadete = totalPedidosCompletados/(float)CadetesConPedidos.Count;
-                Console.WriteLine($"Total de envios: {totalPedidosCompletados}");
-                Console.WriteLine($"Promedio de envios por cadete: {promedioEnviosPorCadete}");
-
-                Console.WriteLine("INFORME POR CADETE: ");
-                int totalEnvioCadete;
-                foreach (var cadete in CadetesConPedidos)
-                {       
-                    totalEnvioCadete = cadete.ListaPedidos.Count(pedido => pedido.Estado == 1);
-                    Console.WriteLine($"\tNombre: {cadete.Nombre} || Pedidos completdados por el cadete: {totalEnvioCadete } || Total ganado: ${cadete.JornalACobrar(cadete)}");
-                }
-            }
-            else
-            {
-                Console.WriteLine("NO HAY CADETES CON PEDIDOS COMPLETADOS");
-            }
-        }
-    
-        /*public float JornalACobrar(int id)
-        {
-          
-            int totalPedidosCompletados = cadete.ListaPedidos.Count(pedido => pedido.Estado == 1);
-            float jornal = totalPedidosCompletados * 500;
-            return jornal;
-          
-        }  */
-
-        public void AsignarCadeteAPedido(int idCadete, int idPedido)
-        {
-            ListaPedidos
-            
-            if (ListaPedidos.Cadete.Id == )
-            {
+            int totalEnviosCompletados = 0;
                 
+            Console.WriteLine("INFORME DE CADETES: ");
+            foreach (var cadete in ListaCadetes)
+            {
+                float montoACobrarCadete = JornalACobrar(cadete.Id);
+                int pedidosCompletadosPorElCadete = (int)montoACobrarCadete/500;
+                if (montoACobrarCadete != 0)
+                {
+                    totalEnviosCompletados += pedidosCompletadosPorElCadete;
+                }
+
+                Console.WriteLine($"Nombre Cadete: {cadete.Nombre} | Pedidos Completados: {pedidosCompletadosPorElCadete} | Jornal a cobrar: {montoACobrarCadete}");
             }
 
-            Pedido pedidoEncontrado = null;
-            Cadete cadeteParaAsginarPedido = null;
-            string entrada;
-            bool entradacorrecta;
-            int nroABuscar;
-            do
-            {
-                if (entradacorrecta)
-                {
-                    pedidoEncontrado = PedidosAsignados.Find(p => p.Nro == nroABuscar);
-                    if (pedidoEncontrado != null)
-                    {
-                        Console.WriteLine("LISTA DE CADETES");
-                        foreach (var cadete in ListaCadetes)
-                        {
-                            Cadete.MostrarCadete(cadete);
-                        }
-                        Console.WriteLine("SELECCIONE EL CADETE A ASIGNAR EL PEDIDO");
-                        entrada = Console.ReadLine();
-                        entradacorrecta = int.TryParse(entrada, out nroABuscar);    
-                        if (entradacorrecta)
-                        {
-                            cadeteParaAsginarPedido = ListaCadetes.Find(cadete => cadete.Id == nroABuscar);
-                            if (cadeteParaAsginarPedido != null)
-                            {
-                                if (cadeteParaAsginarPedido != pedidoEncontrado.Cadete)
-                                {
-                                    pedidoEncontrado.Cadete = cadeteParaAsginarPedido;
-                                    Console.WriteLine("PEDIDO REASIGNADO");
-                                }
-                                else
-                                {
-                                    Console.WriteLine("EL CADETE YA TIENE REASINGADO ESTE PEDIDO");
-                                }
-                            }
-                            else
-                            {
-                                Console.WriteLine("NO SE ECNONTRO EL CADETE");
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("ENTRADA INCORRECTA");
-                        }
-                            List<Cadete> cadetesSinPedidos = ListaGeneralPedidos.Where(p => p.Cadete != null).Select(p => p.Cadete).ToList();
-                            if (cadetesSinPedidos != null)
-                            {
-                                
-                                foreach (var cadete in cadetesSinPedidos)
-                                {
-                                    Cadete.MostrarCadete(cadete);
-                                }
-                                
-                            }
-                            else
-                            {
-                                    Console.WriteLine("NO HAY CADETES SIN PEDIDOS ASIGNADOS");
-                            }
+            Console.WriteLine("INFORME GENERAL: ");
+            float promedioEnviosPorCadete = (float)totalEnviosCompletados/ListaCadetes.Count;
+            Console.WriteLine($"Total-Envios: {totalEnviosCompletados}"); 
+            Console.WriteLine($"Promedio de envios completado por cadete: {promedioEnviosPorCadete}");
+        }
+        public float JornalACobrar(int id)
+        {
+            float jornal = 0;
+            int pedidosCompletadosPorElCadete = ListaPedidos.Count(pedido => pedido.Cadete != null && pedido.Cadete.Id == id);
 
-                            Console.WriteLine("SELECCIONE EL CADETE AL QUE QUIERE REASINGAR EL PEDIDO");
-                            entrada = Console.ReadLine();
-                            entradacorrecta = int.TryParse(entrada, out nroABuscar);
-                            if (entradacorrecta)
-                            {
-                            
-                                
-                            }
-                            else
-                            {
-                                Console.WriteLine("ENTRADA INCORRECTA");
-                            }
+            if (pedidosCompletadosPorElCadete != 0)
+            {
+                jornal = pedidosCompletadosPorElCadete * 500;
+            }
+            
+            return jornal;
+        } 
+        public bool AsignarCadeteAPedido(int idCadete, int idPedido)
+        {
+            Pedido pedidoEncontrado = ListaPedidos.Find(pedido =>pedido.Nro == idPedido);
+            if (pedidoEncontrado != null)
+            {
+                Cadete cadeteParaAsginarPedido = ListaCadetes.Find(cadete => cadete.Id == idCadete);
+                if (cadeteParaAsginarPedido != null)
+                {
+                    if (pedidoEncontrado.Cadete != cadeteParaAsginarPedido)
+                    {
+                        pedidoEncontrado.Cadete = cadeteParaAsginarPedido;
+                        return true;
                     }
                     else
                     {
-                        Console.WriteLine("NO SE ENCONTRO EL PEDIDO");
+                        Console.WriteLine("EL CADETE YA TIENE ASIGNADO ESTE PEDIDO");
                     }
                 }
                 else
                 {
-                    Console.WriteLine("ENTRADA INCORRECTA");
+                    Console.WriteLine("NO SE EL CADETE");
                 }
-
-            } while (pedidoEncontrado == null || cadeteParaAsginarPedido == null);
+            }
+            else
+            {
+                Console.WriteLine("NO SE ENCONTRO EL PEDIDO");
+            }
+            return false;         
         }
-
     }
 }
 
