@@ -25,5 +25,23 @@ namespace EspacioGUI
             Console.WriteLine("INGRESE UNA OPCION: ");
             Console.ResetColor();
         }
+
+        public static void MenuAcceso()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine(
+                    @$"
+                    ╔═══════════════════════════════════════════════════════════════════════╗
+                    ║ MENU ACCESO: SELECCIONE CON QUE ARCHIVOS DESEA TRABAJAR               ║
+                    ╠═══════════════════════════════════════════════════════════════════════╣
+                    ║ 1. CSV                                                                ║
+                    ║ 2. JSON                                                               ║
+                    ╚═══════════════════════════════════════════════════════════════════════╝
+                    "
+            );
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("INGRESE UNA OPCION: ");
+            Console.ResetColor();
+        }
     }
 }

@@ -1,27 +1,46 @@
 using EspacioAccesoADatos;
 using EspacioCadeteria;
 using EspacioCadete;
+using System.Text.Json;
 
 namespace EspacioAccesoAJson
 {
-    public class AccesoAJson : AccesoADatos
+    public class AccesoAJSON : AccesoADatos
     {
-        public Cadeteria CargarArchivo(string ArchivoCadeteria, List<Cadete> ListaCadetes){
-            Cadeteria cadeteria = new Cadeteria();
-
+        public bool Existe(string archivo)
+        {
+            string ruta = "JSON/"+archivo+".json";
+            return File.Exists(ruta);
+        }
+        public List<Cadete> CargarArchivoCadetes(string ArchivoCadetes)
+        {
+            ArchivoCadetes = "JSON/"+ArchivoCadetes+".json";
+            string cadetesJson;
+            using (var archivoOpen = new FileStream(ArchivoCadetes, FileMode.Open))
+            {
+                using (var strReader = new StreamReader(archivoOpen))
+                {
+                    cadetesJson = strReader.ReadToEnd();
+                    archivoOpen.Close();
+                }
+            }
+            List<Cadete> ListaCadetes = JsonSerializer.Deserialize<List<Cadete>>(cadetesJson);
+            return ListaCadetes;   
+        }
+        public Cadeteria CargarArchivoCadeteria(string ArchivoCadeteria, List<Cadete> ListaCadetes){
+            ArchivoCadeteria = "JSON/"+ArchivoCadeteria+".json"; 
+            string cadeteriaJson;
             using (var archivoOpen = new FileStream(ArchivoCadeteria, FileMode.Open))
             {
                 using (var strReader = new StreamReader(archivoOpen))
                 {
-                    string linea; 
-                    while ((linea = strReader.ReadLine()) != null)
-                    {
-                        string[] datos = linea.Split(',');
-                        cadeteria = new Cadeteria(datos[0], Convert.ToInt64(datos[1]), ListaCadetes);
-                    }
+                    cadeteriaJson = strReader.ReadToEnd();
+                    archivoOpen.Close();
                 }
             }
-            return cadeteria;           
+            Cadeteria cadeteria = JsonSerializer.Deserialize<Cadeteria>(cadeteriaJson);
+            cadeteria.ListaCadetes = ListaCadetes;
+            return cadeteria;    
         }
     }
 }

@@ -1,0 +1,32 @@
+[
+    {
+      "Id": 1,
+      "Nombre": "Lionel Messi",
+      "Direccion": "Barcelona al 100",
+      "Telefono": 3863548787
+    },
+    {
+      "Id": 2,
+      "Nombre": "Dibu Martinez",
+      "Direccion": "Aston Villa al 923",
+      "Telefono": 381585498
+    },
+    {
+      "Id": 3,
+      "Nombre": "Angel Di Maria",
+      "Direccion": "Benfica al 452",
+      "Telefono": 381548798
+    },
+    {
+      "Id": 4,
+      "Nombre": "Alexis McAllister",
+      "Direccion": "Liverpool al 754",
+      "Telefono": 381213265
+    },
+    {
+      "Id": 5,
+      "Nombre": "Julian Alvarez",
+      "Direccion": "Atletico Madrid al 778",
+      "Telefono": 381326598
+    }
+]

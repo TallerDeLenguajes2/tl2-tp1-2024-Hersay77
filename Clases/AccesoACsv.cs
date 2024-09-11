@@ -6,8 +6,14 @@ namespace EspacioAccesoACSV
 {
     public class AccesoACSV : AccesoADatos
     {
+        public bool Existe(string archivo)
+        {
+            string ruta = "CSV/"+archivo+".csv";
+            return File.Exists(ruta);
+        }
         public List<Cadete> CargarArchivoCadetes(string ArchivoCadetes)
         {
+            ArchivoCadetes = "CSV/"+ArchivoCadetes+".csv";
             List<Cadete> ListaCadetes = new List<Cadete>(); 
   
             using (var archivoOpen = new FileStream(ArchivoCadetes, FileMode.Open)) //se abre el archvo - using para liberar recursos despues del bloque
@@ -25,7 +31,9 @@ namespace EspacioAccesoACSV
             }
             return ListaCadetes;
         }
-        public Cadeteria CargarArchivoCadeteria(string ArchivoCadeteria, List<Cadete> ListaCadetes){
+        public Cadeteria CargarArchivoCadeteria(string ArchivoCadeteria, List<Cadete> ListaCadetes)
+        {
+            ArchivoCadeteria = "CSV/"+ArchivoCadeteria+".csv";
             Cadeteria cadeteria = new Cadeteria();
 
             using (var archivoOpen = new FileStream(ArchivoCadeteria, FileMode.Open))
