@@ -38,6 +38,7 @@ namespace EspacioPedido
             Pedido.VerDatosCliente(pedido.cliente);
             if (pedido.Cadete != null)
             {
+                Console.WriteLine("Cadete Asignado: ");
                 Cadete.MostrarCadete(pedido.Cadete);
             }
             Console.ResetColor();

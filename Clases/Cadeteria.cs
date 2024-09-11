@@ -76,71 +76,53 @@ namespace EspacioCadeteria
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("####### ASIGNANDO PEDIDO A CADETE #########");
             Console.ResetColor();
+            List<Pedido> PedidosNoAsignados = ListaPedidos.Where(pedido => pedido.Cadete == null).ToList(); //armo lista de pedidos NO asignados
 
-            var pedidoEncontrado = MetodosHelper.SelectPedidosNoAsignados(ListaPedidos);
-            if (pedidoEncontrado != null)
+            if (PedidosNoAsignados.Count != 0)
             {
-                var cadeteEncontrado = MetodosHelper.SelectCadete(ListaCadetes);
-                if (cadeteEncontrado != null)
+                var pedidoEncontrado = MetodosHelper.SelectPedidos(PedidosNoAsignados);
+                if (pedidoEncontrado != null)
                 {
-                    pedidoEncontrado.Cadete = cadeteEncontrado; //asigno cadete
-                    Console.ForegroundColor = ConsoleColor.DarkRed;
-                    Console.WriteLine("PEDIDO ASIGNADO A CADETE");
-                    Console.ResetColor();
+                    var cadeteEncontrado = MetodosHelper.SelectCadete(ListaCadetes);
+                    if (cadeteEncontrado != null)
+                    {
+                        pedidoEncontrado.Cadete = cadeteEncontrado; //asigno cadete
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine("PEDIDO ASIGNADO A CADETE");
+                        Console.ResetColor();
+                    }
                 }
             }
-
+            else
+            {
+                Console.WriteLine("NO HAY PEDIDOS PARA ASIGNARLES CADETES");
+            }
+            
         }
         public void CambiarEstado()
         {
             Console.WriteLine("### CAMBIANDO ESTADO A UN PEDIDO: ###");
-            int nroABuscar;
             string entrada;
             bool entradacorrecta;
-            Pedido pedidoEncontrado;
-
-            Console.WriteLine("SELECCIONE UN PEDIDO: ");
-            foreach (var pedido in ListaPedidos)
+            int estado;
+            Pedido pedidoEncontrado = MetodosHelper.SelectPedidos(ListaPedidos);
+            if (pedidoEncontrado != null)
             {
-                Pedido.MostrarPedido(pedido);
-            }
-            entrada = Console.ReadLine();
-            entradacorrecta = int.TryParse(entrada, out nroABuscar);
-
-            if (entradacorrecta)
-            {
-                pedidoEncontrado = ListaPedidos.Find(pedido => pedido.Nro == nroABuscar); // Encuentra el primer pedido que coincida
-
-                    if (pedidoEncontrado != null)
+                do
+                {
+                    Console.WriteLine("INGRESE EL NUEVO ESTADO DEL PEDIDO: 1 = Entregado y 0 = No Entregado");
+                    entrada = Console.ReadLine();
+                    entradacorrecta = int.TryParse(entrada, out estado);
+                    if (!entradacorrecta || (estado != 1 && estado != 0))
                     {
-                        Console.WriteLine("PEDIDO ENCONTRADO: ");
-                        Pedido.MostrarPedido(pedidoEncontrado);
-                        int estado;
-                        do
-                        {
-                            Console.WriteLine("INGRESE EL NUEVO ESTADO DEL PEDIDO: 1 = Entregado y 0 = No Entregado");
-                            entrada = Console.ReadLine();
-                            entradacorrecta = int.TryParse(entrada, out estado);
-                            if (!entradacorrecta || (estado != 1 && estado != 0))
-                            {
-                                Console.WriteLine("Ingreso Incorrecto. Vuelva a ingresar un numero");
-                            }
-                        } while (!entradacorrecta || (estado != 1 && estado != 0));
-                        pedidoEncontrado.Estado = estado;
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine("SE CAMBIO EL ESTADO DEL PEDIDO");
-                        Console.ResetColor();
-                    }
-                    else
-                    {
-                        Console.WriteLine("NO SE ENCONTRO EL PEDIDO");    
-                    }
+                        Console.WriteLine("Ingreso Incorrecto. Vuelva a ingresar un numero");
+                    }                    
+                } while (!entradacorrecta || (estado != 1 && estado != 0));
+                pedidoEncontrado.Estado = estado;
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("SE CAMBIO EL ESTADO DEL PEDIDO");
+                Console.ResetColor();
             }
-            else
-            {
-                Console.WriteLine("ENTRADA INCORRECTA");    
-            }
-
         }
         public void ReasignarPedido()
         {

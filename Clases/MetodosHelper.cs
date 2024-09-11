@@ -5,14 +5,12 @@ namespace EspacioMetodosHelper
 {
     public class MetodosHelper
     {
-        public static Pedido SelectPedidosNoAsignados(List<Pedido> ListaPedidos){
+        public static Pedido SelectPedidos(List<Pedido> ListaPedidos){
 
-            List<Pedido> PedidosNoAsignados = ListaPedidos.Where(pedido => pedido.Cadete == null).ToList(); //armo lista de pedidos NO asignados
-
-            if (PedidosNoAsignados.Count != 0)
+            if (ListaPedidos.Count != 0)
             {
                 Console.WriteLine("SELECCIONE UN PEDIDO: ");
-                foreach (var pedido in PedidosNoAsignados)
+                foreach (var pedido in ListaPedidos)
                 {
                     Pedido.MostrarPedido(pedido);
                 }
@@ -27,7 +25,7 @@ namespace EspacioMetodosHelper
                     entradacorrecta = int.TryParse(entrada, out nroABuscar);
                     if (entradacorrecta)
                     {
-                        pedidoEncontrado = PedidosNoAsignados.Find(Pedido => Pedido.Nro == nroABuscar);
+                        pedidoEncontrado = ListaPedidos.Find(Pedido => Pedido.Nro == nroABuscar);
                         if (pedidoEncontrado != null)
                         {
                             return pedidoEncontrado;
@@ -45,7 +43,7 @@ namespace EspacioMetodosHelper
             }
             else
             {
-                Console.WriteLine("NO HAY PEDIDOS NO ASIGNADOS");
+                Console.WriteLine("NO HAY PEDIDOS");
             }
             return null;
         }
