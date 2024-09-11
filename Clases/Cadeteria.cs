@@ -167,7 +167,7 @@ namespace EspacioCadeteria
         public float JornalACobrar(int id)
         {
             float jornal = 0;
-            int pedidosCompletadosPorElCadete = ListaPedidos.Count(pedido => pedido.Cadete != null && pedido.Cadete.Id == id);
+            int pedidosCompletadosPorElCadete = ListaPedidos.Count(pedido => pedido.Cadete != null && pedido.Cadete.Id == id && pedido.Estado == 1);
 
             if (pedidosCompletadosPorElCadete != 0)
             {
