@@ -32,12 +32,10 @@ namespace EspacioCadeteria
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("######### DANDO DE ALTA UN PEDIDO #########\n");
             Console.ForegroundColor = ConsoleColor.White;
-
             string Obs, Nombre, Direccion, Entrada, DatosReferenciaDireccion;
             long Telefono;
             int Estado;
             bool Bandera;
-            /*ingreso nro automatico*/
             Console.WriteLine("Ingrese Pedido y observaciones: ");
             Obs = Console.ReadLine();
             Console.WriteLine("Ingrese Nombre Cliente: ");
@@ -48,12 +46,11 @@ namespace EspacioCadeteria
             do
             {
                 Entrada = Console.ReadLine();
-                Bandera = long.TryParse(Entrada, out Telefono);
-                if (!Bandera)
+                if (!long.TryParse(Entrada, out Telefono)) //devuelve 0 si no se logra la conversion
                 {
                     Console.WriteLine("Ingreso Incorrecto. Vuelva a ingresar un numero");
                 }
-            } while (!Bandera);
+            } while (Telefono == 0);
             Console.WriteLine("Ingrese Datos de Referencia de la Direccion: ");
             DatosReferenciaDireccion = Console.ReadLine();
             Console.WriteLine("Ingrese Estado del pedido: 1 = Entregado y 0 = No Entregado");
@@ -286,7 +283,7 @@ namespace EspacioCadeteria
 
             Console.WriteLine("INFORME GENERAL: ");
             float promedioEnviosPorCadete = (float)totalEnviosCompletados/ListaCadetes.Count;
-            Console.WriteLine($"Total-Envios: {totalEnviosCompletados}"); 
+            Console.WriteLine($"Total Envios: {totalEnviosCompletados}"); 
             Console.WriteLine($"Promedio de envios completado por cadete: {promedioEnviosPorCadete}");
         }
         public float JornalACobrar(int id)
