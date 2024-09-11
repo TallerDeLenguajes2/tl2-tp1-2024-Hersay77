@@ -5,46 +5,39 @@ namespace EspacioMetodosHelper
 {
     public class MetodosHelper
     {
-        public static Pedido SelectPedidos(List<Pedido> ListaPedidos){
-
-            if (ListaPedidos.Count != 0)
+        public static Pedido SelectPedidos(List<Pedido> ListaPedidos)
+        {
+            Console.WriteLine("SELECCIONE UN PEDIDO: ");
+            foreach (var pedido in ListaPedidos)
             {
-                Console.WriteLine("SELECCIONE UN PEDIDO: ");
-                foreach (var pedido in ListaPedidos)
+                Pedido.MostrarPedido(pedido);
+            }
+            int nroABuscar;
+            string entrada;
+            bool entradacorrecta;
+            Pedido pedidoEncontrado = null;
+            do
+            {
+                Console.WriteLine("INGRESE NUMERO DE PEDIDO: ");
+                entrada = Console.ReadLine();
+                entradacorrecta = int.TryParse(entrada, out nroABuscar);
+                if (entradacorrecta)
                 {
-                    Pedido.MostrarPedido(pedido);
-                }
-                int nroABuscar;
-                string entrada;
-                bool entradacorrecta;
-                Pedido pedidoEncontrado = null;
-                do
-                {
-                    Console.WriteLine("INGRESE NUMERO DE PEDIDO: ");
-                    entrada = Console.ReadLine();
-                    entradacorrecta = int.TryParse(entrada, out nroABuscar);
-                    if (entradacorrecta)
+                    pedidoEncontrado = ListaPedidos.Find(Pedido => Pedido.Nro == nroABuscar);
+                    if (pedidoEncontrado != null)
                     {
-                        pedidoEncontrado = ListaPedidos.Find(Pedido => Pedido.Nro == nroABuscar);
-                        if (pedidoEncontrado != null)
-                        {
-                            return pedidoEncontrado;
-                        }
-                        else
-                        {
-                            Console.WriteLine("NO SE ENCONTRO EL PEDIDO");
-                        }
+                        return pedidoEncontrado;
                     }
                     else
                     {
-                        Console.WriteLine("INGRESO INCORRECTO");
-                    }                
-                } while (!entradacorrecta || pedidoEncontrado == null);
-            }
-            else
-            {
-                Console.WriteLine("NO HAY PEDIDOS");
-            }
+                        Console.WriteLine("NO SE ENCONTRO EL PEDIDO");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("INGRESO INCORRECTO");
+                }                
+            } while (!entradacorrecta || pedidoEncontrado == null);
             return null;
         }
     

@@ -80,16 +80,13 @@ namespace EspacioCadeteria
 
             if (PedidosNoAsignados.Count != 0)
             {
-                var pedidoEncontrado = MetodosHelper.SelectPedidos(PedidosNoAsignados);
-                if (pedidoEncontrado != null)
+                var PedidoEncontrado = MetodosHelper.SelectPedidos(PedidosNoAsignados);
+                if (PedidoEncontrado != null)
                 {
-                    var cadeteEncontrado = MetodosHelper.SelectCadete(ListaCadetes);
-                    if (cadeteEncontrado != null)
+                    var CadeteEncontrado = MetodosHelper.SelectCadete(ListaCadetes);
+                    if (CadeteEncontrado != null)
                     {
-                        pedidoEncontrado.Cadete = cadeteEncontrado; //asigno cadete
-                        Console.ForegroundColor = ConsoleColor.DarkRed;
-                        Console.WriteLine("PEDIDO ASIGNADO A CADETE");
-                        Console.ResetColor();
+                        AsignarCadeteAPedido(CadeteEncontrado.Id, PedidoEncontrado.Nro);
                     }
                 }
             }
@@ -105,8 +102,8 @@ namespace EspacioCadeteria
             string entrada;
             bool entradacorrecta;
             int estado;
-            Pedido pedidoEncontrado = MetodosHelper.SelectPedidos(ListaPedidos);
-            if (pedidoEncontrado != null)
+            Pedido PedidoEncontrado = MetodosHelper.SelectPedidos(ListaPedidos);
+            if (PedidoEncontrado != null)
             {
                 do
                 {
@@ -118,7 +115,7 @@ namespace EspacioCadeteria
                         Console.WriteLine("Ingreso Incorrecto. Vuelva a ingresar un numero");
                     }                    
                 } while (!entradacorrecta || (estado != 1 && estado != 0));
-                pedidoEncontrado.Estado = estado;
+                PedidoEncontrado.Estado = estado;
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("SE CAMBIO EL ESTADO DEL PEDIDO");
                 Console.ResetColor();
@@ -127,57 +124,18 @@ namespace EspacioCadeteria
         public void ReasignarPedido()
         {
             List<Pedido> PedidosAsignados = ListaPedidos.Where(pedido => pedido.Cadete != null).ToList(); //armo lista de pedidos con cadetes asignados
-            
             if (PedidosAsignados.Count != 0)
             {
                 Console.WriteLine("MOSTRANDO PEDIDOS ASIGNADOS Y SU CORRESPONDIENTE CADETE");
-                foreach (var pedido in PedidosAsignados)
-                {
-                    Pedido.MostrarPedido(pedido);
-                }
-
-                int idCadete;
-                int idPedido;
-                string entrada;
-                bool entradacorrecta;
-
-                do
-                {
-                    Console.WriteLine("SELECCIONE EL NUMERO DE PEDIDO A REASINGAR");
-                    entrada = Console.ReadLine();
-                    entradacorrecta = int.TryParse(entrada, out idPedido);
-                    if (entradacorrecta)
+                Pedido PedidoEncontrado = MetodosHelper.SelectPedidos(PedidosAsignados);
+                if (PedidoEncontrado != null)
                     {
-                        Console.WriteLine("SELECCIONE EL ID DEL CADETE");
-                        Console.WriteLine("MOSTRANDO CADETES");
-                        foreach (var cadete in ListaCadetes)
+                        Cadete CadeteEncontrado = MetodosHelper.SelectCadete(ListaCadetes);
+                        if (CadeteEncontrado != null)
                         {
-                            Cadete.MostrarCadete(cadete);
+                        AsignarCadeteAPedido(CadeteEncontrado.Id, PedidoEncontrado.Nro);
                         }
-                        entrada = Console.ReadLine();
-                        entradacorrecta = int.TryParse(entrada, out idCadete);
-                        if (entradacorrecta)
-                        {
-                            bool asignacion = AsignarCadeteAPedido(idCadete, idPedido);
-                            if (asignacion)
-                            {
-                                Console.WriteLine("CADETE ASIGNADO AL PEDIDO");
-                            }
-                            else
-                            {
-                                Console.WriteLine("NO SE PUDO ASIGNAR EL CADETE AL PEDIDO");
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("ENTRADA INCORECTA");
-                        }
-                    }   
-                    else
-                    {
-                        Console.WriteLine("ENTRADA INCORECTA");
                     }
-                } while (!entradacorrecta);
             }
             else
             {
@@ -218,34 +176,15 @@ namespace EspacioCadeteria
             
             return jornal;
         } 
-        public bool AsignarCadeteAPedido(int idCadete, int idPedido)
+        public void AsignarCadeteAPedido(int idCadete, int idPedido)
         {
-            Pedido pedidoEncontrado = ListaPedidos.Find(pedido =>pedido.Nro == idPedido);
-            if (pedidoEncontrado != null)
-            {
-                Cadete cadeteParaAsginarPedido = ListaCadetes.Find(cadete => cadete.Id == idCadete);
-                if (cadeteParaAsginarPedido != null)
-                {
-                    if (pedidoEncontrado.Cadete != cadeteParaAsginarPedido)
-                    {
-                        pedidoEncontrado.Cadete = cadeteParaAsginarPedido;
-                        return true;
-                    }
-                    else
-                    {
-                        Console.WriteLine("EL CADETE YA TIENE ASIGNADO ESTE PEDIDO");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("NO SE EL CADETE");
-                }
-            }
-            else
-            {
-                Console.WriteLine("NO SE ENCONTRO EL PEDIDO");
-            }
-            return false;         
+            var pedidoEncontrado = listaPedidos.Find(pedido => pedido.Nro == idPedido);
+            var cadeteEncontrado = listaCadetes.Find(cadete => cadete.Id == idCadete);
+
+            pedidoEncontrado.Cadete = cadeteEncontrado;             
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("CADETE ASIGNADO AL PEDIDO");
+            Console.ResetColor();
         }
     }
 }
