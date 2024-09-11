@@ -32,14 +32,7 @@ if (AccesoADatos.Existe(ArchivoCadetes) && AccesoADatos.Existe(ArchivoCadeteria)
                 nro++; //aumento numero de pedido
                 break;
             case 2:
-                if (cadeteria.ListaPedidos.Count != 0)
-                {
-                    cadeteria.AsignarPedido();
-                }
-                else
-                {
-                    Console.WriteLine("NO HAY PEDIDOS PARA ASIGNAR");
-                }
+                cadeteria.AsignarPedido();
                 break;
             case 3:
                 cadeteria.CambiarEstado();

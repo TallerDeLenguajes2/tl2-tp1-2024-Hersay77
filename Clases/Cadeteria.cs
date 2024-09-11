@@ -1,4 +1,5 @@
 using EspacioCadete;
+using EspacioMetodosHelper;
 using EspacioPedido;
 
 namespace EspacioCadeteria
@@ -46,11 +47,12 @@ namespace EspacioCadeteria
             do
             {
                 Entrada = Console.ReadLine();
-                if (!long.TryParse(Entrada, out Telefono)) //devuelve 0 si no se logra la conversion
+                Bandera = long.TryParse(Entrada, out Telefono);
+                if (!Bandera) //devuelve 0 si no se logra la conversion
                 {
                     Console.WriteLine("Ingreso Incorrecto. Vuelva a ingresar un numero");
                 }
-            } while (Telefono == 0);
+            } while (!Bandera);
             Console.WriteLine("Ingrese Datos de Referencia de la Direccion: ");
             DatosReferenciaDireccion = Console.ReadLine();
             Console.WriteLine("Ingrese Estado del pedido: 1 = Entregado y 0 = No Entregado");
@@ -75,83 +77,19 @@ namespace EspacioCadeteria
             Console.WriteLine("####### ASIGNANDO PEDIDO A CADETE #########");
             Console.ResetColor();
 
-            List<Pedido> PedidosNoAsignados = ListaPedidos.Where(pedido => pedido.Cadete == null).ToList(); //armo lista de pedidos NO asignados
-
-            if (PedidosNoAsignados.Count != 0)
+            var pedidoEncontrado = MetodosHelper.SelectPedidosNoAsignados(ListaPedidos);
+            if (pedidoEncontrado != null)
             {
-                Console.WriteLine("SELECCIONE UN PEDIDO: ");
-                foreach (var pedido in PedidosNoAsignados)
+                var cadeteEncontrado = MetodosHelper.SelectCadete(ListaCadetes);
+                if (cadeteEncontrado != null)
                 {
-                    Pedido.MostrarPedido(pedido);
+                    pedidoEncontrado.Cadete = cadeteEncontrado; //asigno cadete
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine("PEDIDO ASIGNADO A CADETE");
+                    Console.ResetColor();
                 }
-                int nroABuscar;
-                string entrada;
-                bool entradacorrecta;
-                Pedido pedidoEncontrado = null;
-                Cadete cadeteEncontrado = null;
-                do
-                {
-                    Console.WriteLine("INGRESE NUMERO DE PEDIDO: ");
-                    entrada = Console.ReadLine();
-                    entradacorrecta = int.TryParse(entrada, out nroABuscar);
-                    if (entradacorrecta)
-                    {
-                        pedidoEncontrado = PedidosNoAsignados.Find(Pedido => Pedido.Nro == nroABuscar);
-                        if (pedidoEncontrado != null)
-                        {
-                            do
-                            {
-                                Console.WriteLine("SELECCIONE UN CADETE");
-                                foreach (var cadete in ListaCadetes)
-                                {
-                                    Cadete.MostrarCadete(cadete);
-                                }
-                                Console.WriteLine("INGRESE EL ID DEL CADETE: ");
-                                entrada = Console.ReadLine();
-                                entradacorrecta = int.TryParse(entrada, out nroABuscar);
-                                if (entradacorrecta)
-                                {
-                                    cadeteEncontrado = ListaCadetes.Find(Cadete => Cadete.Id == nroABuscar);
-                                    if (cadeteEncontrado != null)
-                                    {
-                                        pedidoEncontrado.Cadete = cadeteEncontrado; //asigno cadete
-                                        Console.ForegroundColor = ConsoleColor.DarkRed;
-                                        Console.WriteLine("PEDIDO ASIGNADO A CADETE");
-                                        Console.ResetColor();
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("NO SE ENCONTRO EL CADETE");
-                                    }
-
-                                }
-                                else
-                                {
-                                    Console.WriteLine("INGRESO INCORRECTO");
-                                }                            
-                            } while (!entradacorrecta || cadeteEncontrado == null);
-
-                        }
-                        else
-                        {
-                            Console.WriteLine("NO SE ENCONTRO EL PEDIDO");
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("INGRESO INCORRECTO");
-                    }                
-                } while (!entradacorrecta || pedidoEncontrado == null || cadeteEncontrado == null);
-            }
-            else
-            {
-                Console.WriteLine("NO HAY PEDIDOS PARA ASIGNAR");
             }
 
-
-
-
-            
         }
         public void CambiarEstado()
         {
