@@ -1,6 +1,7 @@
 using EspacioAccesoADatos;
 using EspacioCadeteria;
 using EspacioCadete;
+using EspacioPedido;
 using System.Text.Json;
 
 namespace EspacioAccesoAJson
@@ -40,6 +41,7 @@ namespace EspacioAccesoAJson
             }
             Cadeteria cadeteria = JsonSerializer.Deserialize<Cadeteria>(cadeteriaJson);
             cadeteria.ListaCadetes = ListaCadetes;
+            cadeteria.ListaPedidos = new List<Pedido>();
             return cadeteria;    
         }
     }

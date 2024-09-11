@@ -14,7 +14,7 @@ namespace EspacioCadeteria
         public string Nombre { get => nombre; set => nombre = value;}
         public long Telefono { get => telefono; set => telefono = value;}
         public List<Cadete> ListaCadetes { get => listaCadetes; set => listaCadetes = value;}
-        public List<Pedido> ListaPedidos { get => listaPedidos;}
+        public List<Pedido> ListaPedidos { get => listaPedidos; set => listaPedidos = value;}
 
         public Cadeteria(string Nombre, long Telefono, List<Cadete> ListaCadetes) //constructor
         {
@@ -144,25 +144,32 @@ namespace EspacioCadeteria
         }    
         public void MostrarInforme()
         {
-            int totalEnviosCompletados = 0;
-                
-            Console.WriteLine("INFORME DE CADETES: ");
-            foreach (var cadete in ListaCadetes)
+            if (ListaPedidos != null || ListaPedidos.Count !=0) //al usar csv se crea lista null, al usar json lista vacia
             {
-                float montoACobrarCadete = JornalACobrar(cadete.Id);
-                int pedidosCompletadosPorElCadete = (int)montoACobrarCadete/500;
-                if (montoACobrarCadete != 0)
+                int totalEnviosCompletados = 0;
+                
+                Console.WriteLine("INFORME DE CADETES: ");
+                foreach (var cadete in ListaCadetes)
                 {
-                    totalEnviosCompletados += pedidosCompletadosPorElCadete;
+                    float montoACobrarCadete = JornalACobrar(cadete.Id);
+                    int pedidosCompletadosPorElCadete = (int)montoACobrarCadete/500;
+                    if (montoACobrarCadete != 0)
+                    {
+                        totalEnviosCompletados += pedidosCompletadosPorElCadete;
+                    }
+
+                    Console.WriteLine($"Nombre Cadete: {cadete.Nombre} | Pedidos Completados: {pedidosCompletadosPorElCadete} | Jornal a cobrar: {montoACobrarCadete}");
                 }
 
-                Console.WriteLine($"Nombre Cadete: {cadete.Nombre} | Pedidos Completados: {pedidosCompletadosPorElCadete} | Jornal a cobrar: {montoACobrarCadete}");
+                Console.WriteLine("INFORME GENERAL: ");
+                float promedioEnviosPorCadete = (float)totalEnviosCompletados/ListaCadetes.Count;
+                Console.WriteLine($"Total Envios: {totalEnviosCompletados}"); 
+                Console.WriteLine($"Promedio de envios completado por cadete: {promedioEnviosPorCadete}");
             }
-
-            Console.WriteLine("INFORME GENERAL: ");
-            float promedioEnviosPorCadete = (float)totalEnviosCompletados/ListaCadetes.Count;
-            Console.WriteLine($"Total Envios: {totalEnviosCompletados}"); 
-            Console.WriteLine($"Promedio de envios completado por cadete: {promedioEnviosPorCadete}");
+            else
+            {
+                Console.WriteLine("NO SE REALIZARON PEDIDOS ESATA JORNADA");
+            }
         }
         public float JornalACobrar(int id)
         {
