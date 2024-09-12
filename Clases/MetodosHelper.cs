@@ -1,5 +1,6 @@
 using EspacioPedido;
 using EspacioCadete;
+using EspacioCadeteria;
 
 namespace EspacioMetodosHelper
 {
@@ -76,7 +77,7 @@ namespace EspacioMetodosHelper
                 return null;
         }
 
-        public static Pedido CrearPedido(int Nro)
+        public static bool CrearPedido(int Nro, List<Pedido> ListaPedido)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("######### DANDO DE ALTA UN PEDIDO #########\n");
@@ -116,9 +117,13 @@ namespace EspacioMetodosHelper
 
             //construyendo pedido
             
-            Pedido Pedido = new Pedido(Nro, Obs, Nombre, Direccion, Telefono, DatosReferenciaDireccion, Estado);
-            Console.ResetColor();
-            return Pedido;
+            Pedido NuevoPedido = Cadeteria.AltaPedido(Nro, Obs, Nombre, Direccion, Telefono, DatosReferenciaDireccion, Estado);
+            if (NuevoPedido != null)
+            {
+                ListaPedido.Add(NuevoPedido);
+                return true;
+            }
+            return false;
         }
 
         public static int ControlEstado(){

@@ -27,16 +27,13 @@ namespace EspacioCadeteria
         public Cadeteria(){
 
         }
-        public bool AltaPedido(int Nro)
+
+        public static Pedido AltaPedido(int Nro, string Obs, string Nombre, string Direccion, long Telefono, string DatosReferenciaDireccion, int Estado)
         {
-            Pedido NuevoPedido = MetodosHelper.CrearPedido(Nro);
-            if (NuevoPedido != null)
-            {
-                ListaPedidos.Add(NuevoPedido);
-                return true;
-            }
-            return false;
+            Pedido NuevoPedido = new Pedido(Nro, Obs, Nombre, Direccion, Telefono, DatosReferenciaDireccion, Estado);
+            return NuevoPedido;
         }
+
         public bool AsignarPedido()
         {
             List<Pedido> PedidosNoAsignados = ListaPedidos.Where(pedido => pedido.Cadete == null).ToList(); //armo lista de pedidos NO asignados
@@ -122,7 +119,6 @@ namespace EspacioCadeteria
             {
                 jornal = pedidosCompletadosPorElCadete * 500;
             }
-            
             return jornal;
         } 
         public void AsignarCadeteAPedido(int idCadete, int idPedido)
@@ -131,9 +127,6 @@ namespace EspacioCadeteria
             var cadeteEncontrado = listaCadetes.Find(cadete => cadete.Id == idCadete);
 
             pedidoEncontrado.Cadete = cadeteEncontrado;             
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine("CADETE ASIGNADO AL PEDIDO");
-            Console.ResetColor();
         }
     }
 }

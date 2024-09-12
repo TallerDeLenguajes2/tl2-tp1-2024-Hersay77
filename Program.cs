@@ -53,7 +53,7 @@ do
             switch (opcion)
             {
                 case 1:
-                    completado = cadeteria.AltaPedido(nro);
+                    completado = MetodosHelper.CrearPedido(nro, cadeteria.ListaPedidos);
                     if (completado)
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
