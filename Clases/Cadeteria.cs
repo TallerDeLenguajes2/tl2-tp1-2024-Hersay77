@@ -27,31 +27,24 @@ namespace EspacioCadeteria
         public Cadeteria(){
 
         }
-
         public static Pedido AltaPedido(int Nro, string Obs, string Nombre, string Direccion, long Telefono, string DatosReferenciaDireccion, int Estado)
         {
             Pedido NuevoPedido = new Pedido(Nro, Obs, Nombre, Direccion, Telefono, DatosReferenciaDireccion, Estado);
             return NuevoPedido;
         }
-
-        public bool AsignarPedido()
+        public bool AsignarCadeteAPedido(int idCadete, int idPedido)
         {
-            List<Pedido> PedidosNoAsignados = ListaPedidos.Where(pedido => pedido.Cadete == null).ToList(); //armo lista de pedidos NO asignados
-
-            if (PedidosNoAsignados.Count != 0)
+            var pedidoEncontrado = listaPedidos.Find(pedido => pedido.Nro == idPedido);
+            var cadeteEncontrado = listaCadetes.Find(cadete => cadete.Id == idCadete);
+            if (pedidoEncontrado != null && cadeteEncontrado != null)
             {
-                var PedidoEncontrado = MetodosHelper.SelectPedidos(PedidosNoAsignados);
-                if (PedidoEncontrado != null)
-                {
-                    var CadeteEncontrado = MetodosHelper.SelectCadete(ListaCadetes);
-                    if (CadeteEncontrado != null)
-                    {
-                        AsignarCadeteAPedido(CadeteEncontrado.Id, PedidoEncontrado.Nro);
-                        return true;
-                    }
-                }
+                pedidoEncontrado.Cadete = cadeteEncontrado; 
+                return true;
             }
-            return false;            
+            else
+            {
+                return false;
+            }           
         }
         public bool CambiarEstado()
         {
@@ -121,13 +114,7 @@ namespace EspacioCadeteria
             }
             return jornal;
         } 
-        public void AsignarCadeteAPedido(int idCadete, int idPedido)
-        {
-            var pedidoEncontrado = listaPedidos.Find(pedido => pedido.Nro == idPedido);
-            var cadeteEncontrado = listaCadetes.Find(cadete => cadete.Id == idCadete);
 
-            pedidoEncontrado.Cadete = cadeteEncontrado;             
-        }
     }
 }
 

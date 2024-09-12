@@ -53,6 +53,7 @@ do
             switch (opcion)
             {
                 case 1:
+                    
                     completado = MetodosHelper.CrearPedido(nro, cadeteria.ListaPedidos);
                     if (completado)
                     {
@@ -70,9 +71,10 @@ do
                     break;
                 case 2:
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("####### ASIGNANDO PEDIDO A CADETE #########");
+                    Console.WriteLine("####### ASIGNANDO CADETE A PEDIDO #########");
                     Console.ResetColor();
-                    completado =  cadeteria.AsignarPedido();
+                    List<Pedido> PedidosNoAsignados = cadeteria.ListaPedidos.Where(pedido => pedido.Cadete == null).ToList();
+                    completado =  cadeteria.AsignarCadeteAPedido((MetodosHelper.SelectCadete(ListaCadetes)).Id,(MetodosHelper.SelectPedidos(PedidosNoAsignados)).Nro);
                     if (completado)
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
