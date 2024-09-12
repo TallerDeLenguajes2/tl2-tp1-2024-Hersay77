@@ -58,11 +58,13 @@ do
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine("PEDIDO AGREGADO A LA LISTA GENERAL DE PEDIDOS");
-                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.ResetColor();
                     }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("ERROR NO SE PUDDO AGREGAR EL PEDIDO");
+                        Console.ResetColor();
                     }
                     nro++; //aumento numero de pedido
                     break;
@@ -75,17 +77,32 @@ do
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine("PEDIDO ASIGNADO");
-                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.ResetColor();
                     }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("NO HAY PEDIDOS PARA ASIGNARLES CADETES");
+                        Console.ResetColor();
                     }
                     break;
                 case 3:
-                    cadeteria.CambiarEstado();
+                    completado = cadeteria.CambiarEstado();
+                    if (completado)
+                    {   
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("SE CAMBIO EL ESTADO DEL PEDIDO");
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("NO SE PUDO CAMBIAR EL ESTADO AL PEDIDO");
+                        Console.ResetColor();
+                    }
                     break;
                 case 4:
+                    Console.WriteLine("### REASIGNANDO PEDIDO: ###");
                     cadeteria.ReasignarPedido();
                     break;
                 case 5:

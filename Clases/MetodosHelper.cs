@@ -120,5 +120,22 @@ namespace EspacioMetodosHelper
             Console.ResetColor();
             return Pedido;
         }
+
+        public static int ControlEstado(){
+            string entrada;
+            bool entradacorrecta;
+            int estado;
+            do
+                {
+                    Console.WriteLine("INGRESE EL NUEVO ESTADO DEL PEDIDO: 1 = Entregado y 0 = No Entregado");
+                    entrada = Console.ReadLine();
+                    entradacorrecta = int.TryParse(entrada, out estado);
+                    if (!entradacorrecta || (estado != 1 && estado != 0))
+                    {
+                        Console.WriteLine("Ingreso Incorrecto. Vuelva a ingresar un numero");
+                    }                    
+                } while (!entradacorrecta || (estado != 1 && estado != 0));
+            return estado;
+        }
     }
 }

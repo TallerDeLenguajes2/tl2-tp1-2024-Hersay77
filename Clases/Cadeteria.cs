@@ -56,30 +56,15 @@ namespace EspacioCadeteria
             }
             return false;            
         }
-        public void CambiarEstado()
+        public bool CambiarEstado()
         {
-            Console.WriteLine("### CAMBIANDO ESTADO A UN PEDIDO: ###");
-            string entrada;
-            bool entradacorrecta;
-            int estado;
             Pedido PedidoEncontrado = MetodosHelper.SelectPedidos(ListaPedidos);
             if (PedidoEncontrado != null)
             {
-                do
-                {
-                    Console.WriteLine("INGRESE EL NUEVO ESTADO DEL PEDIDO: 1 = Entregado y 0 = No Entregado");
-                    entrada = Console.ReadLine();
-                    entradacorrecta = int.TryParse(entrada, out estado);
-                    if (!entradacorrecta || (estado != 1 && estado != 0))
-                    {
-                        Console.WriteLine("Ingreso Incorrecto. Vuelva a ingresar un numero");
-                    }                    
-                } while (!entradacorrecta || (estado != 1 && estado != 0));
-                PedidoEncontrado.Estado = estado;
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("SE CAMBIO EL ESTADO DEL PEDIDO");
-                Console.ResetColor();
+                PedidoEncontrado.Estado = MetodosHelper.ControlEstado();
+                return true;
             }
+            return false;
         }
         public void ReasignarPedido()
         {
