@@ -46,12 +46,12 @@ namespace EspacioCadeteria
                 return false;
             }           
         }
-        public bool CambiarEstado()
+        public bool CambiarEstado(int nroPedido, int estado)
         {
-            Pedido PedidoEncontrado = MetodosHelper.SelectPedidos(ListaPedidos);
+            Pedido PedidoEncontrado = ListaPedidos.Find(pedido => pedido.Nro == nroPedido);
             if (PedidoEncontrado != null)
             {
-                PedidoEncontrado.Estado = MetodosHelper.ControlEstado();
+                PedidoEncontrado.Estado = estado;
                 return true;
             }
             return false;

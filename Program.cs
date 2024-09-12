@@ -89,7 +89,9 @@ do
                     }
                     break;
                 case 3:
-                    completado = cadeteria.CambiarEstado();
+                    int nroPedido = (MetodosHelper.SelectPedidos(cadeteria.ListaPedidos)).Nro;
+                    int estado = MetodosHelper.ControlEstado();
+                    completado = cadeteria.CambiarEstado(nroPedido, estado);
                     if (completado)
                     {   
                         Console.ForegroundColor = ConsoleColor.Yellow;
