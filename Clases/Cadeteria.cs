@@ -28,6 +28,17 @@ namespace EspacioCadeteria
         public Cadeteria(){
 
         }
+
+        public bool AltaPedido(int Nro)
+        {
+            Pedido NuevoPedido = MetodosHelper.CrearPedido(Nro);
+            if (NuevoPedido != null)
+            {
+                ListaPedidos.Add(NuevoPedido);
+                return true;
+            }
+            return false;
+        }
         public void AsignarPedido()
         {
             Console.ForegroundColor = ConsoleColor.Yellow;

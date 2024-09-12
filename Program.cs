@@ -41,8 +41,8 @@ do
     {
         ListaCadetes = Acceso.CargarArchivoCadetes(ArchivoCadetes); //Cargo Lista Cadetes
         cadeteria = Acceso.CargarArchivoCadeteria(ArchivoCadeteria, ListaCadetes); //Cargo datos de Cadeteria en una instancia cadeteria
-
-        int  nro = 1;
+        
+        int nro = 1;
         do
         {
             GUI.Menu(cadeteria);
@@ -52,11 +52,17 @@ do
             switch (opcion)
             {
                 case 1:
-                    Pedido NuevoPedido = MetodosHelper.AltaPedido(nro);
-                    cadeteria.ListaPedidos.Add(NuevoPedido); //agrego pedido a la lista general
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("PEDIDO AGREGADO A LA LISTA GENERAL DE PEDIDOS");
-                    Console.ForegroundColor = ConsoleColor.White;
+                    bool alta = cadeteria.AltaPedido(nro);
+                    if (alta)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("PEDIDO AGREGADO A LA LISTA GENERAL DE PEDIDOS");
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+                    else
+                    {
+                        Console.WriteLine("ERROR NO SE PUDDO AGREGAR EL PEDIDO");
+                    }
                     nro++; //aumento numero de pedido
                     break;
                 case 2:

@@ -76,7 +76,7 @@ namespace EspacioMetodosHelper
                 return null;
         }
 
-                public static Pedido AltaPedido(int Nro)
+        public static Pedido CrearPedido(int Nro)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("######### DANDO DE ALTA UN PEDIDO #########\n");
@@ -115,6 +115,7 @@ namespace EspacioMetodosHelper
             } while (!Bandera || (Estado != 1 && Estado != 0));
 
             //construyendo pedido
+            
             Pedido Pedido = new Pedido(Nro, Obs, Nombre, Direccion, Telefono, DatosReferenciaDireccion, Estado);
             Console.ResetColor();
             return Pedido;
