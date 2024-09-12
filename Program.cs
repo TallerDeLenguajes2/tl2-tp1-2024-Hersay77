@@ -43,6 +43,7 @@ do
         cadeteria = Acceso.CargarArchivoCadeteria(ArchivoCadeteria, ListaCadetes); //Cargo datos de Cadeteria en una instancia cadeteria
         
         int nro = 1;
+        bool completado;
         do
         {
             GUI.Menu(cadeteria);
@@ -52,8 +53,8 @@ do
             switch (opcion)
             {
                 case 1:
-                    bool alta = cadeteria.AltaPedido(nro);
-                    if (alta)
+                    completado = cadeteria.AltaPedido(nro);
+                    if (completado)
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine("PEDIDO AGREGADO A LA LISTA GENERAL DE PEDIDOS");
@@ -66,7 +67,20 @@ do
                     nro++; //aumento numero de pedido
                     break;
                 case 2:
-                    cadeteria.AsignarPedido();
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("####### ASIGNANDO PEDIDO A CADETE #########");
+                    Console.ResetColor();
+                    completado =  cadeteria.AsignarPedido();
+                    if (completado)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("PEDIDO ASIGNADO");
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+                    else
+                    {
+                        Console.WriteLine("NO HAY PEDIDOS PARA ASIGNARLES CADETES");
+                    }
                     break;
                 case 3:
                     cadeteria.CambiarEstado();

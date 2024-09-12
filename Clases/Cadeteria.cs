@@ -24,11 +24,9 @@ namespace EspacioCadeteria
             listaCadetes = ListaCadetes;
             listaPedidos = new List<Pedido>();
         }
-
         public Cadeteria(){
 
         }
-
         public bool AltaPedido(int Nro)
         {
             Pedido NuevoPedido = MetodosHelper.CrearPedido(Nro);
@@ -39,11 +37,8 @@ namespace EspacioCadeteria
             }
             return false;
         }
-        public void AsignarPedido()
+        public bool AsignarPedido()
         {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("####### ASIGNANDO PEDIDO A CADETE #########");
-            Console.ResetColor();
             List<Pedido> PedidosNoAsignados = ListaPedidos.Where(pedido => pedido.Cadete == null).ToList(); //armo lista de pedidos NO asignados
 
             if (PedidosNoAsignados.Count != 0)
@@ -55,14 +50,11 @@ namespace EspacioCadeteria
                     if (CadeteEncontrado != null)
                     {
                         AsignarCadeteAPedido(CadeteEncontrado.Id, PedidoEncontrado.Nro);
+                        return true;
                     }
                 }
             }
-            else
-            {
-                Console.WriteLine("NO HAY PEDIDOS PARA ASIGNARLES CADETES");
-            }
-            
+            return false;            
         }
         public void CambiarEstado()
         {
