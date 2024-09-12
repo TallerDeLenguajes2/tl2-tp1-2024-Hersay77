@@ -5,6 +5,7 @@ using EspacioAccesoADatos;
 using EspacioPedido;
 using EspacioAccesoACSV;
 using EspacioAccesoAJson;
+using EspacioMetodosHelper;
 
 string ArchivoCadetes = "Cadetes";
 string ArchivoCadeteria = "Cadeteria";
@@ -51,7 +52,7 @@ do
             switch (opcion)
             {
                 case 1:
-                    Pedido NuevoPedido = Cadeteria.AltaPedido(nro);
+                    Pedido NuevoPedido = MetodosHelper.AltaPedido(nro);
                     cadeteria.ListaPedidos.Add(NuevoPedido); //agrego pedido a la lista general
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("PEDIDO AGREGADO A LA LISTA GENERAL DE PEDIDOS");
