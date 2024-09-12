@@ -42,7 +42,7 @@ do
         ListaCadetes = Acceso.CargarArchivoCadetes(ArchivoCadetes); //Cargo Lista Cadetes
         cadeteria = Acceso.CargarArchivoCadeteria(ArchivoCadeteria, ListaCadetes); //Cargo datos de Cadeteria en una instancia cadeteria
         
-        int nro = 1;
+        int numeroPedido = 1;
         bool completado;
         do
         {
@@ -53,8 +53,8 @@ do
             switch (opcion)
             {
                 case 1:
-                    
-                    completado = MetodosHelper.CrearPedido(nro, cadeteria.ListaPedidos);
+                    string[] informacionPedido = MetodosHelper.CrearPedido();
+                    completado = cadeteria.AltaPedido(numeroPedido,informacionPedido[0], informacionPedido[1], informacionPedido[2], informacionPedido[3], informacionPedido[4], informacionPedido[5]);
                     if (completado)
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
@@ -67,14 +67,14 @@ do
                         Console.WriteLine("ERROR NO SE PUDDO AGREGAR EL PEDIDO");
                         Console.ResetColor();
                     }
-                    nro++; //aumento numero de pedido
+                    numeroPedido++; //aumento numero de pedido
                     break;
                 case 2:
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("####### ASIGNANDO CADETE A PEDIDO #########");
                     Console.ResetColor();
                     List<Pedido> PedidosNoAsignados = cadeteria.ListaPedidos.Where(pedido => pedido.Cadete == null).ToList();
-                    completado =  cadeteria.AsignarCadeteAPedido((MetodosHelper.SelectCadete(ListaCadetes)).Id,(MetodosHelper.SelectPedidos(PedidosNoAsignados)).Nro);
+                    completado =  cadeteria.AsignarCadeteAPedido((MetodosHelper.SelectCadete(ListaCadetes)),(MetodosHelper.SelectPedidos(PedidosNoAsignados)));
                     if (completado)
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
@@ -89,7 +89,7 @@ do
                     }
                     break;
                 case 3:
-                    int nroPedido = (MetodosHelper.SelectPedidos(cadeteria.ListaPedidos)).Nro;
+                    int nroPedido = (MetodosHelper.SelectPedidos(cadeteria.ListaPedidos));
                     int estado = MetodosHelper.ControlEstado();
                     completado = cadeteria.CambiarEstado(nroPedido, estado);
                     if (completado)
@@ -107,9 +107,10 @@ do
                     break;
                 case 4:
                     Console.WriteLine("### REASIGNANDO PEDIDO: ###");
-                    completado = cadeteria.ReasignarPedido();
-                    if (completado)
-                    {   
+                    List<Pedido> PedidosAsignados = cadeteria.ListaPedidos.Where(pedido => pedido.Cadete != null).ToList();
+                    if (PedidosAsignados.Count != 0)
+                    {
+                        completado = cadeteria.AsignarCadeteAPedido(MetodosHelper.SelectCadete(cadeteria.ListaCadetes),MetodosHelper.SelectPedidos(PedidosAsignados));
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine("SE REASIGNO EL PEDIDO");
                         Console.ResetColor();
@@ -119,7 +120,7 @@ do
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("AUN NO SE ASIGNARON PEDIDOS A NINGUN CADETE");
                         Console.ResetColor();
-                    }
+                    }                  
                     break;
                 case 5:
                     Console.WriteLine("FINAL DE JORNADA - MOSTRANDO INFORME");

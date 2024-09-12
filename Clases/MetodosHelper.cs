@@ -6,7 +6,7 @@ namespace EspacioMetodosHelper
 {
     public class MetodosHelper
     {
-        public static Pedido SelectPedidos(List<Pedido> ListaPedidos)
+        public static int SelectPedidos(List<Pedido> ListaPedidos)
         {
             Console.WriteLine("SELECCIONE UN PEDIDO: ");
             foreach (var pedido in ListaPedidos)
@@ -27,7 +27,7 @@ namespace EspacioMetodosHelper
                     pedidoEncontrado = ListaPedidos.Find(Pedido => Pedido.Nro == nroABuscar);
                     if (pedidoEncontrado != null)
                     {
-                        return pedidoEncontrado;
+                        return pedidoEncontrado.Nro;
                     }
                     else
                     {
@@ -39,10 +39,10 @@ namespace EspacioMetodosHelper
                     Console.WriteLine("INGRESO INCORRECTO");
                 }                
             } while (!entradacorrecta || pedidoEncontrado == null);
-            return null;
+            return 0;
         }
     
-        public static Cadete SelectCadete(List<Cadete> ListaCadetes){
+        public static int SelectCadete(List<Cadete> ListaCadetes){
             string entrada;
             bool entradacorrecta;
             int nroABuscar;
@@ -62,7 +62,7 @@ namespace EspacioMetodosHelper
                         cadeteEncontrado = ListaCadetes.Find(Cadete => Cadete.Id == nroABuscar);
                         if (cadeteEncontrado != null)
                         {
-                            return cadeteEncontrado;
+                            return cadeteEncontrado.Id;
                         }
                         else
                         {
@@ -74,10 +74,10 @@ namespace EspacioMetodosHelper
                         Console.WriteLine("INGRESO INCORRECTO");
                     }                            
                 } while (!entradacorrecta);
-                return null;
+                return 0;
         }
 
-        public static bool CrearPedido(int Nro, List<Pedido> ListaPedido)
+        public static string[] CrearPedido()
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("######### DANDO DE ALTA UN PEDIDO #########\n");
@@ -116,14 +116,8 @@ namespace EspacioMetodosHelper
             } while (!Bandera || (Estado != 1 && Estado != 0));
 
             //construyendo pedido
-            
-            Pedido NuevoPedido = Cadeteria.AltaPedido(Nro, Obs, Nombre, Direccion, Telefono, DatosReferenciaDireccion, Estado);
-            if (NuevoPedido != null)
-            {
-                ListaPedido.Add(NuevoPedido);
-                return true;
-            }
-            return false;
+            string[] informacionPedido = {Obs, Nombre, Direccion, Telefono.ToString(), DatosReferenciaDireccion, Estado.ToString()};
+            return informacionPedido;
         }
 
         public static int ControlEstado(){

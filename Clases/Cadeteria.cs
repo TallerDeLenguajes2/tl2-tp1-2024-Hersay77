@@ -25,12 +25,16 @@ namespace EspacioCadeteria
             listaPedidos = new List<Pedido>();
         }
         public Cadeteria(){
-
         }
-        public static Pedido AltaPedido(int Nro, string Obs, string Nombre, string Direccion, long Telefono, string DatosReferenciaDireccion, int Estado)
+        public bool AltaPedido(int Nro, string Obs, string Nombre, string Direccion, string Telefono, string DatosReferenciaDireccion, string Estado)
         {
-            Pedido NuevoPedido = new Pedido(Nro, Obs, Nombre, Direccion, Telefono, DatosReferenciaDireccion, Estado);
-            return NuevoPedido;
+            Pedido NuevoPedido = new Pedido(Nro, Obs, Nombre, Direccion, long.Parse(Telefono), DatosReferenciaDireccion, int.Parse(Estado));
+            if (NuevoPedido != null)
+            {
+                ListaPedidos.Add(NuevoPedido);
+                return true;
+            }
+            return false;
         }
         public bool AsignarCadeteAPedido(int idCadete, int idPedido)
         {
@@ -55,25 +59,7 @@ namespace EspacioCadeteria
                 return true;
             }
             return false;
-        }
-        public bool ReasignarPedido()
-        {
-            List<Pedido> PedidosAsignados = ListaPedidos.Where(pedido => pedido.Cadete != null).ToList(); //armo lista de pedidos con cadetes asignados
-            if (PedidosAsignados.Count != 0)
-            {
-                Pedido PedidoEncontrado = MetodosHelper.SelectPedidos(PedidosAsignados);
-                if (PedidoEncontrado != null)
-                    {
-                        Cadete CadeteEncontrado = MetodosHelper.SelectCadete(ListaCadetes);
-                        if (CadeteEncontrado != null)
-                        {
-                            AsignarCadeteAPedido(CadeteEncontrado.Id, PedidoEncontrado.Nro);
-                            return true;
-                        }
-                    }
-            }
-            return false;
-        }    
+        }  
         public void MostrarInforme()
         {
             if (ListaPedidos != null || ListaPedidos.Count !=0) //al usar csv se crea lista null, al usar json lista vacia
