@@ -39,8 +39,8 @@ do
 
     if (Acceso.Existe(ArchivoCadetes) && Acceso.Existe(ArchivoCadeteria))
     {
-        ListaCadetes = Acceso.CargarArchivoCadetes(ArchivoCadetes); //Cargo Lista Cadetes
-        cadeteria = Acceso.CargarArchivoCadeteria(ArchivoCadeteria, ListaCadetes); //Cargo datos de Cadeteria en una instancia cadeteria
+        ListaCadetes = Acceso.CargarArchivoCadetes(ArchivoCadetes); 
+        cadeteria = Acceso.CargarArchivoCadeteria(ArchivoCadeteria, ListaCadetes); 
         
         int numeroPedido = 1;
         bool completado;
