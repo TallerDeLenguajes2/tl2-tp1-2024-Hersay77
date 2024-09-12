@@ -103,7 +103,19 @@ do
                     break;
                 case 4:
                     Console.WriteLine("### REASIGNANDO PEDIDO: ###");
-                    cadeteria.ReasignarPedido();
+                    completado = cadeteria.ReasignarPedido();
+                    if (completado)
+                    {   
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("SE REASIGNO EL PEDIDO");
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("AUN NO SE ASIGNARON PEDIDOS A NINGUN CADETE");
+                        Console.ResetColor();
+                    }
                     break;
                 case 5:
                     Console.WriteLine("FINAL DE JORNADA - MOSTRANDO INFORME");

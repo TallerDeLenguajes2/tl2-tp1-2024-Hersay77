@@ -66,26 +66,23 @@ namespace EspacioCadeteria
             }
             return false;
         }
-        public void ReasignarPedido()
+        public bool ReasignarPedido()
         {
             List<Pedido> PedidosAsignados = ListaPedidos.Where(pedido => pedido.Cadete != null).ToList(); //armo lista de pedidos con cadetes asignados
             if (PedidosAsignados.Count != 0)
             {
-                Console.WriteLine("MOSTRANDO PEDIDOS ASIGNADOS Y SU CORRESPONDIENTE CADETE");
                 Pedido PedidoEncontrado = MetodosHelper.SelectPedidos(PedidosAsignados);
                 if (PedidoEncontrado != null)
                     {
                         Cadete CadeteEncontrado = MetodosHelper.SelectCadete(ListaCadetes);
                         if (CadeteEncontrado != null)
                         {
-                        AsignarCadeteAPedido(CadeteEncontrado.Id, PedidoEncontrado.Nro);
+                            AsignarCadeteAPedido(CadeteEncontrado.Id, PedidoEncontrado.Nro);
+                            return true;
                         }
                     }
             }
-            else
-            {
-                Console.WriteLine("AUN NO SE ASIGNARON PEDIDOS A NINGUN CADETE");
-            }
+            return false;
         }    
         public void MostrarInforme()
         {
