@@ -14,9 +14,9 @@ namespace EspacioGUI
                       CADETERIA: {cadeteria.Nombre} - TEL: {cadeteria.Telefono}             
                     ╠═══════════════════════════════════════════════════════════════════════╣
                     ║ 1. NUEVO PEDIDO                                                       ║
-                    ║ 2. ASIGNAR PEDIDO A CADETE                                            ║
+                    ║ 2. ASIGNAR CADETE A PEDIDO                                            ║
                     ║ 3. CAMBIAR ESTADO DE PEDIDO                                           ║
-                    ║ 4. REASIGNAR PEDIDO A CADETE                                          ║
+                    ║ 4. REASIGNAR CADETE A PEDIDO                                          ║
                     ║ 5. FINALIZAR JORNADA (MOSTRAR INFORME Y SALIR)                        ║
                     ╚═══════════════════════════════════════════════════════════════════════╝
                     "

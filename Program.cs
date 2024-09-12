@@ -123,16 +123,20 @@ do
                     }                  
                     break;
                 case 5:
-                    Console.WriteLine("FINAL DE JORNADA - MOSTRANDO INFORME");
-                    cadeteria.MostrarInforme();
-                    Console.WriteLine("SALIENDO...");
+                    if (cadeteria.ListaPedidos != null || cadeteria.ListaPedidos.Count !=0) //al usar csv se crea lista null, al usar json lista vacia
+                    {
+                        MetodosHelper.MostrarInforme(cadeteria);
+                    }
+                    else
+                    {
+                        Console.WriteLine("NO SE REALIZARON PEDIDOS ESATA JORNADA");
+                    }
                     break;
                 default:
                     Console.Clear();
                     Console.WriteLine("OPCION NO VALIDA - VUELVA A INGRESAR");
                     break;
             }
-
         } while (opcion !=5);
     }
     else

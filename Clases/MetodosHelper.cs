@@ -136,5 +136,21 @@ namespace EspacioMetodosHelper
                 } while (!entradacorrecta || (estado != 1 && estado != 0));
             return estado;
         }
+    
+        public static void MostrarInforme(Cadeteria cadeteria){
+                                    
+            Console.WriteLine("FINAL DE JORNADA - MOSTRANDO INFORME");
+            Console.WriteLine("INFORME DE CADETES: ");
+            foreach (var cadete in cadeteria.ListaCadetes)
+            {
+                float[] InformeCadete = cadeteria.InformeCadete(cadete.Id);
+                Console.WriteLine($"Nombre Cadete: {cadete.Nombre} | Pedidos Completados: {InformeCadete[0]} | Jornal a cobrar: {InformeCadete[1]}"); 
+            }
+            int totalEnviosCompletados = cadeteria.ListaPedidos.Count(pedido => pedido.Estado == 1);
+            float promedioEnviosPorCadete = totalEnviosCompletados/cadeteria.ListaCadetes.Count;
+            Console.WriteLine("INFORME GENERAL: ");
+            Console.WriteLine($"Total Envios: {totalEnviosCompletados}"); 
+            Console.WriteLine($"Promedio de envios completado por cadete: {promedioEnviosPorCadete}");
+        }
     }
 }

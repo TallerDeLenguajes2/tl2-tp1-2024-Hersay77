@@ -60,34 +60,12 @@ namespace EspacioCadeteria
             }
             return false;
         }  
-        public void MostrarInforme()
+        public float[] InformeCadete(int IdCadete)
         {
-            if (ListaPedidos != null || ListaPedidos.Count !=0) //al usar csv se crea lista null, al usar json lista vacia
-            {
-                int totalEnviosCompletados = 0;
-                
-                Console.WriteLine("INFORME DE CADETES: ");
-                foreach (var cadete in ListaCadetes)
-                {
-                    float montoACobrarCadete = JornalACobrar(cadete.Id);
-                    int pedidosCompletadosPorElCadete = (int)montoACobrarCadete/500;
-                    if (montoACobrarCadete != 0)
-                    {
-                        totalEnviosCompletados += pedidosCompletadosPorElCadete;
-                    }
-
-                    Console.WriteLine($"Nombre Cadete: {cadete.Nombre} | Pedidos Completados: {pedidosCompletadosPorElCadete} | Jornal a cobrar: {montoACobrarCadete}");
-                }
-
-                Console.WriteLine("INFORME GENERAL: ");
-                float promedioEnviosPorCadete = (float)totalEnviosCompletados/ListaCadetes.Count;
-                Console.WriteLine($"Total Envios: {totalEnviosCompletados}"); 
-                Console.WriteLine($"Promedio de envios completado por cadete: {promedioEnviosPorCadete}");
-            }
-            else
-            {
-                Console.WriteLine("NO SE REALIZARON PEDIDOS ESATA JORNADA");
-            }
+            float montoACobrarCadete = JornalACobrar(IdCadete);
+            int pedidosCompletadosPorElCadete = (int)montoACobrarCadete/500;
+            float[] informe = {pedidosCompletadosPorElCadete, montoACobrarCadete};
+            return informe;
         }
         public float JornalACobrar(int id)
         {
@@ -100,7 +78,6 @@ namespace EspacioCadeteria
             }
             return jornal;
         } 
-
     }
 }
 
